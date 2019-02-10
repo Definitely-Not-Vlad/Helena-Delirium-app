@@ -1,38 +1,36 @@
 import React, { PureComponent } from 'react';
 
-import {
-  Screen,
-  NavigationBar,
-  ListView,
-} from '@shoutem/ui'
+import { createStackNavigator } from 'react-navigation';
 
-import ListItemView from './components/ListItemView';
+import CompactList from './screens/CompactList';
+import ProductDetails from './screens/ProductDetails';
 
-export default class App extends PureComponent {
-  getData() {
-    return require('./jsonData/data.json');
+const AppNavigator = createStackNavigator(
+  {
+    Home: {
+      screen: CompactList
+    },
+    ProductDetails: {
+      screen: ProductDetails
+    },
+  },
+  {
+    initialRouteName: "Home",
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#eadac7',
+      },
+      headerTitleStyle: {
+        textAlign: 'center',
+        flex: 1,
+        fontWeight: 'normal',
+      }
+    }
   }
+);
 
-  renderRow(item) {
-    return (
-      <ListItemView item={item} />
-    );
-  }
-
+export default class App extends React.PureComponent {
   render() {
-    const data = this.getData();
-
-    return (
-      <Screen>
-        <NavigationBar
-          styleName="inline"
-          title="Helena Delirium"
-        />
-        <ListView
-          data={data}
-          renderRow={item => this.renderRow(item)}
-        />
-      </Screen>
-    );
+    return <AppNavigator />;
   }
 }
