@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 
 import {
   Row,
+  TouchableOpacity,
   Image,
   Subtitle,
   Caption,
@@ -14,21 +15,28 @@ export default class ListItemView extends PureComponent {
     item: PropTypes.object,
   }
 
+  navigateToDetailsScreen(item) {
+    console.log("Navigating to item details screen.")
+    //add navigation code
+  }
+
   render() {
     const { item } = this.props;
 
     return (
       <Row>
-        <View styleName="content horizontal">
-          <Image
-            styleName="small rounded-corners placeholder"
-            source={{ uri : item.image.url }}
-          />
-          <View styleName="md-gutter-left vertical stretch space-between">
-            <Subtitle numberOfLines={1}>{item.name}</Subtitle>
-            <Caption numberOfLines={1}>{item.subtitle}</Caption>
+        <TouchableOpacity onPress={this.navigateToDetailsScreen(item)}>
+          <View styleName="content horizontal">
+            <Image
+              styleName="small rounded-corners placeholder"
+              source={{ uri : item.image.url }}
+            />
+            <View styleName="md-gutter-left vertical stretch space-between">
+              <Subtitle numberOfLines={1}>{item.name}</Subtitle>
+              <Caption numberOfLines={1}>{item.subtitle}</Caption>
+            </View>
           </View>
-        </View>
+        </TouchableOpacity>
       </Row>
     );
   }
