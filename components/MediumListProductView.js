@@ -12,7 +12,7 @@ import {
   Divider,
 } from '@shoutem/ui';
 
-export default class ListProductView extends PureComponent {
+export default class MediumListProductView extends PureComponent {
   static propTypes = {
     item: PropTypes.object,
     onPress: PropTypes.func,
@@ -25,6 +25,8 @@ export default class ListProductView extends PureComponent {
   render() {
     const { item, onPress } = this.props;
 
+    const { nameColor } = item;
+
     return (
       <TouchableOpacity onPress={() => onPress(item)}>
         <Row>
@@ -33,7 +35,12 @@ export default class ListProductView extends PureComponent {
             source={{ uri : item.image.url }}
           />
           <View styleName="vertical stretch h-center space-between">
-            <Subtitle numberOfLines={1}>{item.name}</Subtitle>
+            <Subtitle
+              numberOfLines={1}
+              style={{color:nameColor}}
+            >
+              {item.name}
+            </Subtitle>
             <Caption>{this.resolveSubtitle(item.subtitle)}</Caption>
             <View styleName="horizontal h-center">
             <Caption>{item.netto}</Caption>

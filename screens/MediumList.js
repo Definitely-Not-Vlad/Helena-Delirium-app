@@ -3,11 +3,11 @@ import React, { PureComponent } from 'react';
 import {
   Screen,
   ListView,
-} from '@shoutem/ui'
+} from '@shoutem/ui';
 
-import ListProductView from '../components/ListProductView';
+import MediumListProductView from '../components/MediumListProductView';
 
-export default class CompactList extends PureComponent {
+export default class MediumList extends PureComponent {
   static navigationOptions = {
     title: "Helena Delirium"
   }
@@ -30,7 +30,7 @@ export default class CompactList extends PureComponent {
 
   renderRow(product) {
     return (
-      <ListProductView item={product} onPress={() => this.openProductDetails(product)} />
+      <MediumListProductView item={product} onPress={() => this.openProductDetails(product)} />
     );
   }
 

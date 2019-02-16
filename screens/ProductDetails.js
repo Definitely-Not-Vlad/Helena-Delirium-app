@@ -12,7 +12,7 @@ import {
   View,
   Text,
   Divider,
-} from '@shoutem/ui'
+} from '@shoutem/ui';
 
 export default class ProductDetails extends PureComponent {
   static navigationOptions = ({ navigation }) => {
@@ -20,12 +20,6 @@ export default class ProductDetails extends PureComponent {
 
     return {
       title: product.name || 'Prirodna Kozmetika',
-      headerTitleStyle: {
-        textAlign: 'center',
-        flex: 1,
-        marginRight: 74,
-        fontWeight: 'normal',
-      }
     };
   }
 
@@ -40,8 +34,17 @@ export default class ProductDetails extends PureComponent {
 
   renderDetails(product) {
     return (
-      <View virtual styleName="vertical h-center lg-gutter-vertical">
-        <Title styleName="centered md-gutter-bottom">{product.name}</Title>
+      <View
+        virtual
+        styleName="vertical h-center lg-gutter-vertical"
+        style={{ backgroundColor: "#FFFFFF" }}
+      >
+        <Title
+          styleName="centered md-gutter-bottom"
+          style={{color:product.nameColor}}
+        >
+          {product.name}
+        </Title>
         <Subtitle numberOfLines={1} styleName="md-gutter-bottom">{product.subtitle}</Subtitle>
         <View virtual styleName="horizontal h-center">
           <Caption>{product.netto}</Caption>
@@ -54,7 +57,7 @@ export default class ProductDetails extends PureComponent {
 
   renderDescription(product) {
     return(
-      <View styleName="md-gutter" style={{ backgroundColor: '#f2f1ef'}}>
+      <View styleName="md-gutter" style={{ backgroundColor: '#EFEFEF'}}>
         <Text styleName="multiline">{product.description}</Text>
       </View>
     )

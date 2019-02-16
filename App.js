@@ -2,13 +2,13 @@ import React, { PureComponent } from 'react';
 
 import { createStackNavigator } from 'react-navigation';
 
-import CompactList from './screens/CompactList';
+import MediumList from './screens/MediumList';
 import ProductDetails from './screens/ProductDetails';
 
 const AppNavigator = createStackNavigator(
   {
     Home: {
-      screen: CompactList
+      screen: MediumList
     },
     ProductDetails: {
       screen: ProductDetails
@@ -18,14 +18,15 @@ const AppNavigator = createStackNavigator(
     initialRouteName: "Home",
     navigationOptions: {
       headerStyle: {
-        backgroundColor: '#eadac7',
+        backgroundColor: '#080706',
       },
       headerTitleStyle: {
-        textAlign: 'center',
-        flex: 1,
+        color: '#ffffff',
         fontWeight: 'normal',
-      }
-    }
+      },
+      headerLeft: null,
+    },
+    headerLayoutPreset: 'center',
   }
 );
 

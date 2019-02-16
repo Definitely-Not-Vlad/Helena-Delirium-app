@@ -1,5 +1,6 @@
 [{
   "name": "Super Green",
+  "nameColor": "#4D7C3B",
   "subtitle": "Univerzalna kremica",
   "price": "50kn",
   "netto": "30g",
@@ -8,6 +9,7 @@
   "image": { "url": "https://scontent-ams3-1.xx.fbcdn.net/v/t31.0-8/11895183_1474309466220625_8633645222793595299_o.jpg?_nc_cat=103&_nc_ht=scontent-ams3-1.xx&oh=231fe32249412fdcbb04da30cf4e23c9&oe=5CDF3C4F" },
 }, {
   "name": "La Vita",
+  "nameColor": "#F8C32A",
   "subtitle": "Prirodna vitaminska gel kremica / hidrator",
   "price": "55kn",
   "netto": "30g",
@@ -16,10 +18,38 @@
   "image": { "url": "https://scontent-ams3-1.xx.fbcdn.net/v/t31.0-8/10987310_1471498689835036_8216843294357537820_o.jpg?_nc_cat=110&_nc_ht=scontent-ams3-1.xx&oh=f06251765dda5b836da04c8a001ad09d&oe=5CB57C7E" },
 }, {
   "name": "By The Sheaside",
+  "nameColor": "#3090A0",
   "subtitle": "Prirodna kremica",
   "price": "50kn",
   "netto": "25g",
   "jarSize": "42ml",
   "description": "Ova mackalica za lice (a može poslužiti i za bilo što drugo, uključujući ranice isl.) je na bazi shea maslaca, a sadrži još kokos, palmarosu, lavandu, cinkov oksid i vitamin E. Kremica se topi u dodiru s kožom i potrebno je vrlo malo za jedno mackanje. :)\n\nShea maslac je čuven po svojim zacjeljujućim svojstvima, pogodan je za sve tipove kože, čak i za onu najosjetljiviju. Smiruje upale, daje koži elastičnost, regenerira ju i ubrzava zacijeljivanje, dubinski ju hrani te ju štiti od vanjskih utjecaja. Ovaj shea maslac dolazi iz afričke zemlje Burkina Faso te ga proizvodi udruženje žena koje na taj način stvaraju bolje životne uvjete uz pomoć fair trade trgovine.\n\nPalmarosa potiče regeneraciju stanica, regulira proizvodnju sebuma i djeluje antibakterijski, te se njome tretiraju akne, ekcemi, infekcije, ožiljci, bore, upale i osipi.\n\nKokos, osim što daje fini kokosasti miris, nježno hrani kožu, omekšava ju i umiruje. Pomaže dehidriranoj koži, vraća joj sjaj i zaglađuje ju te umiruje crvenila.\n\nVitamin E ima anti-age svojstva: blokira djelovanje slobodnih radikala na kožu, uključujući i smanjenje oštećenja stanica zbog izloženosti UV zrakama. Ima protuupalno djelovanje na kožu, pomaže u održavanju elastičnosti i vlažnosti kože te poboljšava njenu mikrocirkulaciju.\n\nKremica je obogaćena i cinkovim oksidom, mineralom koji se koristi u pripravcima za smirenje iritirane kože, ima antiseptička svojstva i štiti od UV zračenja.\n\nDolazi u staklenci od 42 ml, 25 g. Kremica može biti na sobnoj temperaturi.",
   "image": { "url": "https://scontent-ams3-1.xx.fbcdn.net/v/t31.0-8/10999455_1443434602641445_7220241137811369613_o.jpg?_nc_cat=100&_nc_ht=scontent-ams3-1.xx&oh=179c00fb8c4eb57ec5f4807bf25c7385&oe=5CEE3A80" },
+}, {
+  "name": "Softie",
+  "nameColor": "#C27E3A",
+  "subtitle": "Piling",
+  "price": "50kn",
+  "netto": "45g",
+  "jarSize": "42ml",
+  "description": "Softie piling je bogat zrncima i njegujućim komponentama koje će ostaviti kožu glatkom i nahranjenom. 💛💛💛",
+  "image": { "url": "https://scontent.fzag2-1.fna.fbcdn.net/v/t31.0-8/17632260_1772920999692802_1813443982368616342_o.jpg?_nc_cat=110&_nc_ht=scontent.fzag2-1.fna&oh=f125c9fc1ee812d408246d04629e11b7&oe=5D015C77" }
+}, {
+  "name": "Precious",
+  "nameColor": "#E8B84C",
+  "subtitle": "Prirodni serum",
+  "price": "60kn",
+  "netto": "20ml",
+  "jarSize": "20ml",
+  "description": "Bomba finoće za kožu! 💪🕶\n\nPrecious prirodni serumi s vitaminom C, hijaluronom, uljem ploda divlje ruže, aloe vera gelom i još gomilom najboljih aktivnih i prirodnih komponenti. 💛 Formula je nemasna i maziva. 😄",
+  "image": { "url": "https://scontent.fzag2-1.fna.fbcdn.net/v/t31.0-8/16403099_1737600099891559_6360629254154743565_o.jpg?_nc_cat=108&_nc_ht=scontent.fzag2-1.fna&oh=a70c5b7ac601feb28bcd248a9c8fd6de&oe=5CE0859E" }
+}, {
+  "name": "Sirius",
+  "nameColor": "#7D7DA8",
+  "subtitle": "Prirodni prah za izbjeljivanje zubi",
+  "price": "65kn",
+  "netto": "10g",
+  "jarSize": "42ml",
+  "description": "Sirius, prirodni prah za izbjeljivanje zubi\n\nMožda ste već čuli za metodu izbjeljivanja zubi aktivnim ugljenom i za super instagramske rezultate iste. :) Prednosti ove metode izbjeljivanja zubi su brojne.\n\nZašto je aktivni ugljen jedna od najpopularnijih supstanci za izbjeljivanje zubi?\n\nZato što ima visoku moć adsorpcije, uklanja toksine, mrlje i dubinski pročišćava - sve to bez ikakvih rizika po zubno meso ili caklinu. Otklanja i neugodan zadah budući da čisti i usnu šupljinu i probavni trakt.\n\nSirius je obogaćen i sa zelenom glinom koja djeluje protuupalno, antibakterijski te povoljno utječe na desni.\n\nOva staklenka proizvoda vam osigurava najkvalitetniji aktivni ugljen dobiven bez upotrebe kemikalija, stopostotne čistoće, visoke kvalitete i zadnje, ali ne manje važno dobit ćete aktivni ugljen biljnog porijekla (jer neki mogu biti životinjskog). Vrijednost ovog aktivnog ugljena je izmjerena na visokih 1600 - 1800 m 2 / g.\n\nKako se koristi ovaj prah?\n\nVlažnom četkicom za zube se pokupi malo praha iz teglice, čime se zubi nježno četkaju oko 3 minute. Možete i samo malo ostaviti na zubima da ugljen radi svoje te isčetkati. Nakon toga zube operite svojom uobičajenom pastom. Postupak možete ponavljati na dnevnoj bazi dva tjedna. Nekome će rezultati biti vidljivi nakon prvog postupka, nekome će trebati nešto vremena. Nakon 2 tjedna možete jednom tjedno ponavljati postupak kako biste održavali bjelinu. Ovo je samo prijedlog i vi možete odrediti svoj tempo i način korištenja ovog praha! :)\n\nPrah je pakiran u teglicu od 42 ml koja zaprima 10 grama praha, što možete imati poprilično dugo jer se vrlo sporo troši.",
+  "image": { "url": "https://scontent.fzag2-1.fna.fbcdn.net/v/t31.0-8/22459304_1876258966025671_6071907233385854938_o.jpg?_nc_cat=109&_nc_ht=scontent.fzag2-1.fna&oh=a6fe1da551ad760f0c8307505f7f559b&oe=5CF97DF0" }
 }]
