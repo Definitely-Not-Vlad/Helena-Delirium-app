@@ -32,12 +32,12 @@ export default class MediumListProductView extends PureComponent {
         <Row>
           <Image
             styleName="medium rounded-corners placeholder"
-            source={{ uri : item.image.url }}
+            source={{ uri: item.image.url }}
           />
           <View styleName="vertical stretch h-center space-between">
             <Subtitle
               numberOfLines={1}
-              style={{color:nameColor}}
+              style={{ color: nameColor }}
             >
               {item.name}
             </Subtitle>

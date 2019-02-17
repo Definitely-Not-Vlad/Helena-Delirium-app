@@ -7,9 +7,9 @@ import {
 
 import MediumListProductView from '../components/MediumListProductView';
 
-export default class MediumList extends PureComponent {
+export default class ProductList extends PureComponent {
   static navigationOptions = {
-    title: "Helena Delirium"
+    title: "Proizvodi",
   }
 
   constructor(props) {
@@ -19,7 +19,7 @@ export default class MediumList extends PureComponent {
   }
 
   getData() {
-    return require('../jsonData/data.json');
+    return require('../jsonData/products.json');
   }
 
   openProductDetails(product) {
@@ -30,7 +30,10 @@ export default class MediumList extends PureComponent {
 
   renderRow(product) {
     return (
-      <MediumListProductView item={product} onPress={() => this.openProductDetails(product)} />
+      <MediumListProductView
+        item={product}
+        onPress={() => this.openProductDetails(product)}
+      />
     );
   }
 
@@ -41,7 +44,7 @@ export default class MediumList extends PureComponent {
       <Screen style={{ backgroundColor: '#f2f1ef' }}>
         <ListView
           data={data}
-          renderRow={item => this.renderRow(item)}
+          renderRow={this.renderRow}
         />
       </Screen>
     );

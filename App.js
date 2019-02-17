@@ -1,32 +1,34 @@
 import React, { PureComponent } from 'react';
 
-import { createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation';
 
-import MediumList from './screens/MediumList';
-import ProductDetails from './screens/ProductDetails';
+import NewsList from './screens/NewsList';
+import ProductList from './screens/ProductList';
 
-const AppNavigator = createStackNavigator(
+const AppNavigator = createBottomTabNavigator(
   {
-    Home: {
-      screen: MediumList
+    News: {
+      screen: NewsList
     },
-    ProductDetails: {
-      screen: ProductDetails
+    Products: {
+      screen: ProductList
     },
   },
   {
-    initialRouteName: "Home",
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: '#080706',
+    initialRouteName: "News",
+    tabBarOptions: {
+      activeTintColor: '#EFEFEF',
+      inactiveTintColor: '#080706',
+      activeBackgroundColor: '#080706',
+      inactiveBackgroundColor: '#EFEFEF',
+      showIcon: false,
+      tabStyle: {
+        justifyContent: 'center',
       },
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontWeight: 'normal',
-      },
-      headerLeft: null,
+      labelStyle: {
+        fontSize: 22,
+      }
     },
-    headerLayoutPreset: 'center',
   }
 );
 
