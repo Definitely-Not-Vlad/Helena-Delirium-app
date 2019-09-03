@@ -1,9 +1,5 @@
 import React, { PureComponent } from 'react';
-
-import {
-  Screen,
-  ListView,
-} from '@shoutem/ui';
+import { Screen, ListView } from '@shoutem/ui';
 
 import MediumListProductView from '../components/MediumListProductView';
 
@@ -15,6 +11,7 @@ export default class ProductList extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.renderRow = this.renderRow.bind(this);
     this.openProductDetails = this.openProductDetails.bind(this);
   }
 
@@ -42,10 +39,7 @@ export default class ProductList extends PureComponent {
 
     return (
       <Screen style={{ backgroundColor: '#f2f1ef' }}>
-        <ListView
-          data={data}
-          renderRow={this.renderRow}
-        />
+        <ListView data={data} renderRow={this.renderRow} />
       </Screen>
     );
   }

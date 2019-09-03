@@ -28,7 +28,7 @@ export default class MediumListProductView extends PureComponent {
     const { nameColor } = item;
 
     return (
-      <TouchableOpacity onPress={() => onPress(item)}>
+      <TouchableOpacity onPress={onPress}>
         <Row>
           <Image
             styleName="medium rounded-corners placeholder"
@@ -43,9 +43,9 @@ export default class MediumListProductView extends PureComponent {
             </Subtitle>
             <Caption>{this.resolveSubtitle(item.subtitle)}</Caption>
             <View styleName="horizontal h-center">
-            <Caption>{item.netto}</Caption>
-            <Caption>   ·   </Caption>
-            <Caption>{item.price}</Caption>
+              <Caption>{item.netto}</Caption>
+              <Caption>   ·   </Caption>
+              <Caption>{item.price}</Caption>
             </View>
           </View>
         </Row>
