@@ -1,21 +1,21 @@
 import React, { PureComponent } from 'react';
-
-import {
-  Screen,
-  ListView,
-} from '@shoutem/ui';
+import { Screen, ListView } from '@shoutem/ui';
 
 import FeaturedNewsItemView from '../components/FeaturedNewsItemView';
 import NewsItemView from '../components/NewsItemView';
 
 export default class NewsList extends PureComponent {
   static navigationOptions = {
-    title: "Novosti",
+    navigationOptions: {
+      header: null,
+    }
   }
 
   constructor(props) {
     super(props);
 
+    this.renderRow = this.renderRow.bind(this);
+    this.renderFeaturedItem = this.renderFeaturedItem.bind(this);
     this.openNewsDetails = this.openNewsDetails.bind(this);
   }
 
@@ -29,15 +29,21 @@ export default class NewsList extends PureComponent {
     navigation.navigate('NewsDetails', { newsItem: newsItem });
   }
 
-  renderRow(newsItem, sectionId, index) {
-    if (index === '0') {
-      return (
-        <FeaturedNewsItemView item={newsItem} onPress={() => this.openNewsDetails(newsItem)} />
-      )
-    }
-
+  renderFeaturedItem(newsItem) {
     return (
-      <NewsItemView item={newsItem} onPress={() => this.openNewsDetails(newsItem)} />
+      <FeaturedNewsItemView
+        item={newsItem}
+        onPress={() => this.openNewsDetails(newsItem)}
+      />
+    );
+  }
+
+  renderRow(newsItem) {
+    return (
+      <NewsItemView
+        item={newsItem}
+        onPress={() => this.openNewsDetails(newsItem)}
+      />
     );
   }
 
@@ -49,6 +55,8 @@ export default class NewsList extends PureComponent {
         <ListView
           data={data}
           renderRow={this.renderRow}
+          hasFeaturedItem
+          renderFeaturedItem={this.renderFeaturedItem}
         />
       </Screen>
     );

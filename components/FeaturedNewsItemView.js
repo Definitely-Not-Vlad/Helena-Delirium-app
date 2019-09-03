@@ -28,7 +28,7 @@ export default class FeaturedNewsItemView extends PureComponent {
     }
 
     return (
-      <TouchableOpacity onPress={() => onPress(item)}>
+      <TouchableOpacity onPress={onPress}>
         <Tile>
           <View
             styleName="sm-gutter featured"

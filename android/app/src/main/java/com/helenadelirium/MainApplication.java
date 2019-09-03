@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.swmansion.reanimated.ReanimatedPackage;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.reactnative.photoview.PhotoViewPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -28,6 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new RNGestureHandlerPackage(),
+            new ReanimatedPackage(),
+            new RNCWebViewPackage(),
             new PhotoViewPackage(),
             new LinearGradientPackage(),
             new VectorIconsPackage()

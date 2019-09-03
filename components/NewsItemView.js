@@ -22,7 +22,7 @@ export default class NewsItemView extends PureComponent {
     const { item, onPress } = this.props;
 
     return (
-      <TouchableOpacity onPress={() => onPress(item)}>
+      <TouchableOpacity onPress={onPress}>
         <Row>
           <Image
             styleName="small rounded-corners placeholder"
