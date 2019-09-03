@@ -20,7 +20,6 @@ export default class ProductDetails extends PureComponent {
 
     return {
       title: product.name || 'Prirodna Kozmetika',
-      tabBarVisible: false,
     };
   }
 

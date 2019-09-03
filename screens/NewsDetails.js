@@ -20,7 +20,6 @@ export default class NewsDetails extends PureComponent {
 
     return {
       title: newsItem.name || 'Novosti',
-      tabBarVisible: false,
     };
   }
 

@@ -12,7 +12,12 @@ import ProductList from './screens/ProductList';
 import ProductDetails from './screens/ProductDetails';
 
 const NewsStack = createStackNavigator({
-  NewsList: NewsList,
+  NewsList: {
+    screen: NewsList,
+    navigationOptions: {
+      header: null,
+    },
+  },
   NewsDetails: NewsDetails,
 });
 
@@ -23,7 +28,12 @@ NewsStack.navigationOptions = ({ navigation }) => {
 }
 
 const ProductStack = createStackNavigator({
-  ProductList: ProductList,
+  ProductList: {
+    screen: ProductList,
+    navigationOptions: {
+      header: null,
+    },
+  },
   ProductDetails: ProductDetails,
 });
 
@@ -39,6 +49,9 @@ const AppNavigator = createBottomTabNavigator(
     Products: ProductStack,
   },
   {
+    navigationOptions: {
+      header: null
+    },
     initialRouteName: "News",
     tabBarOptions: {
       activeTintColor: '#EFEFEF',

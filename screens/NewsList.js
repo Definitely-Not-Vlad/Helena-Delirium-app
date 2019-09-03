@@ -6,7 +6,9 @@ import NewsItemView from '../components/NewsItemView';
 
 export default class NewsList extends PureComponent {
   static navigationOptions = {
-    title: "Novosti",
+    navigationOptions: {
+      header: null,
+    }
   }
 
   constructor(props) {

@@ -5,7 +5,9 @@ import MediumListProductView from '../components/MediumListProductView';
 
 export default class ProductList extends PureComponent {
   static navigationOptions = {
-    title: "Proizvodi",
+    navigationOptions: {
+      header: null,
+    }
   }
 
   constructor(props) {
