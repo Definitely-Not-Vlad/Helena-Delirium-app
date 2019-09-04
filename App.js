@@ -1,15 +1,18 @@
 import React, { PureComponent } from 'react';
-
 import {
   createAppContainer,
   createBottomTabNavigator,
   createStackNavigator,
 } from 'react-navigation';
+import { Provider } from 'react-redux';
 
 import NewsList from './screens/NewsList';
 import NewsDetails from './screens/NewsDetails';
 import ProductList from './screens/ProductList';
 import ProductDetails from './screens/ProductDetails';
+import ShoppingCart from './screens/ShoppingCart';
+
+import { store } from './redux';
 
 const NewsStack = createStackNavigator({
   NewsList: {
@@ -43,10 +46,27 @@ ProductStack.navigationOptions = ({ navigation }) => {
   return {};
 }
 
+const ShoppingCartStack = createStackNavigator({
+  ShoppingCart: {
+    screen: ShoppingCart,
+    navigationOptions: {
+      header: null,
+    },
+    ProductDetails: ProductDetails,
+  }
+})
+
+ShoppingCartStack.navigationOptions = ({ navigation }) => {
+  if (navigation.state.index != 0) return { tabBarVisible: false }
+
+  return {};
+}
+
 const AppNavigator = createBottomTabNavigator(
   {
     News: NewsStack,
     Products: ProductStack,
+    ShoppingCart: ShoppingCartStack,
   },
   {
     navigationOptions: {
@@ -73,6 +93,10 @@ const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.PureComponent {
   render() {
-    return <AppContainer />;
+    return (
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    )
   }
 }

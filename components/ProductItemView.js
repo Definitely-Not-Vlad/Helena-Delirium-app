@@ -1,6 +1,7 @@
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import _ from 'lodash';
+import { connect } from 'react-redux';
 
 import {
   Row,
@@ -12,10 +13,13 @@ import {
   Divider,
 } from '@shoutem/ui';
 
-export default class MediumListProductView extends PureComponent {
+import { addToCart, removeFromCart } from '../redux';
+
+class ProductItemView extends PureComponent {
   static propTypes = {
     item: PropTypes.object,
     onPress: PropTypes.func,
+    addToCart: PropTypes.func,
   }
 
   resolveSubtitle(subtitle) {
@@ -23,7 +27,7 @@ export default class MediumListProductView extends PureComponent {
   }
 
   render() {
-    const { item, onPress } = this.props;
+    const { item, onPress, addToCart, removeFromCart } = this.props;
 
     const { nameColor } = item;
 
@@ -31,7 +35,7 @@ export default class MediumListProductView extends PureComponent {
       <TouchableOpacity onPress={onPress}>
         <Row>
           <Image
-            styleName="medium rounded-corners placeholder"
+            styleName="medium-square rounded-corners placeholder"
             source={{ uri: item.image.url }}
           />
           <View styleName="vertical stretch h-center space-between">
@@ -47,6 +51,14 @@ export default class MediumListProductView extends PureComponent {
               <Caption>   ·   </Caption>
               <Caption>{item.price}</Caption>
             </View>
+            <View styleName="horizontal space-between">
+              <TouchableOpacity onPress={() => addToCart(item)}>
+                <Subtitle>Add to cart</Subtitle>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => removeFromCart(item.name)}>
+                <Subtitle>Remove</Subtitle>
+              </TouchableOpacity>
+            </View>
           </View>
         </Row>
         <Divider styleName="line" />
@@ -54,3 +66,5 @@ export default class MediumListProductView extends PureComponent {
     );
   }
 }
+
+export default connect(null, { addToCart, removeFromCart })(ProductItemView)

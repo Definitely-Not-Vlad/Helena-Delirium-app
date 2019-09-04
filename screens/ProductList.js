@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Screen, ListView } from '@shoutem/ui';
 
-import MediumListProductView from '../components/MediumListProductView';
+import ProductItemView from '../components/ProductItemView';
 
 export default class ProductList extends PureComponent {
   static navigationOptions = {
@@ -29,7 +29,7 @@ export default class ProductList extends PureComponent {
 
   renderRow(product) {
     return (
-      <MediumListProductView
+      <ProductItemView
         item={product}
         onPress={() => this.openProductDetails(product)}
       />
