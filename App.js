@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 
 import TabBarIcon from './components/TabBarIcon';
 import NewsList from './screens/NewsList';
+import CheckoutScreen from './screens/CheckoutScreen';
 import NewsDetails from './screens/NewsDetails';
 import ProductList from './screens/ProductList';
 import ProductDetails from './screens/ProductDetails';
@@ -53,7 +54,8 @@ const ShoppingCartStack = createStackNavigator({
       header: null,
     },
     ProductDetails: ProductDetails,
-  }
+  },
+  CheckoutScreen: CheckoutScreen,
 })
 
 ShoppingCartStack.navigationOptions = ({ navigation }) => {
