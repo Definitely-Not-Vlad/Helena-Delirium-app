@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import { Screen, ListView } from '@shoutem/ui';
 
 import ProductItemView from '../components/ProductItemView';
+import {
+  getCatalogue,
+  setAddedToCart,
+  setRemovedFromCart,
+} from '../redux';
 
-export default class ProductList extends PureComponent {
-  static navigationOptions = {
-    navigationOptions: {
-      header: null,
-    }
-  }
-
+class ProductList extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -17,27 +17,23 @@ export default class ProductList extends PureComponent {
     this.openProductDetails = this.openProductDetails.bind(this);
   }
 
-  getData() {
-    return require('../jsonData/products.json');
-  }
-
   openProductDetails(product) {
     const { navigation } = this.props;
 
-    navigation.navigate('ProductDetails', { product: product });
+    navigation.navigate('ProductDetails', { name: product.name });
   }
 
   renderRow(product) {
     return (
       <ProductItemView
-        item={product}
+        product={product}
         onPress={() => this.openProductDetails(product)}
       />
     );
   }
 
   render() {
-    const data = this.getData();
+    const { data } = this.props;
 
     return (
       <Screen style={{ backgroundColor: '#f2f1ef' }}>
@@ -46,3 +42,12 @@ export default class ProductList extends PureComponent {
     );
   }
 }
+
+const mapDispatchToProps = { setAddedToCart, setRemovedFromCart };
+const mapStateToProps = (state) => {
+  return {
+    data: getCatalogue(state)
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

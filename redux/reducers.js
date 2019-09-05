@@ -4,11 +4,13 @@ import {
   ADD_TO_CART,
   CHANGE_PRODUCT_QUANTITY,
   REMOVE_FROM_CART,
+
+  SET_ADDED_TO_CART,
+  SET_REMOVED_FROM_CART,
 } from './actionTypes';
 
-const initialShoppingCartState = {
-  cartContents: [],
-}
+const initialCatalogue = { products: require('../jsonData/products.json')};
+const initialShoppingCartState = { cartContents: [] };
 
 function shoppingCart(state = initialShoppingCartState, action) {
   switch (action.type) {
@@ -21,35 +23,63 @@ function shoppingCart(state = initialShoppingCartState, action) {
             quantity: 1,
           }
         ]
-      })
-    case CHANGE_PRODUCT_QUANTITY: {
+      });
+    case CHANGE_PRODUCT_QUANTITY:
       return Object.assign({}, state, {
         cartContents: state.cartContents.map((product) => {
           const { name } = product;
 
           if (name === action.name) {
-            return Object.assign({}, product, {
-              quantity: action.number
-            })
+            return Object.assign({}, product, { quantity: action.number });
           }
 
           return product;
         })
-      })
-    }
+      });
     case REMOVE_FROM_CART:
-      const { name } = product;
-
       return Object.assign({}, state, {
-        cartContents: state.cartContents.filter(product => name !== action.name)
-      })
+        cartContents:
+          state.cartContents.filter(product => product.name !== action.name)
+      });
     default:
-      return state
+      return state;
+  }
+}
+
+function catalogue(state = initialCatalogue, action) {
+  switch (action.type) {
+    case SET_ADDED_TO_CART:
+      return Object.assign({}, state, {
+        products: state.products.map((product) => {
+          const { name } = product;
+
+          if (name === action.name) {
+            return Object.assign({}, product, { canAddToCart: false });
+          }
+
+          return product;
+        })
+      });
+    case SET_REMOVED_FROM_CART:
+      return Object.assign({}, state, {
+        products: state.products.map((product) => {
+          const { name } = product;
+
+          if (name === action.name) {
+            return Object.assign({}, product, { canAddToCart: true });
+          }
+
+          return product;
+        })
+      });
+    default:
+      return state;
   }
 }
 
 const helenaDelirium = combineReducers({
-  shoppingCart
+  shoppingCart,
+  catalogue
 });
 
 export default helenaDelirium;

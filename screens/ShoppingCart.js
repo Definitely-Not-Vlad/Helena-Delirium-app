@@ -24,10 +24,7 @@ class ShoppingCart extends PureComponent {
 
     return (
       <Screen style={{ backgroundColor: '#F2F1EF' }}>
-        <ListView
-          data={data}
-          renderRow={renderRow}
-        />
+        <ListView data={data} renderRow={renderRow} />
       </Screen>
     );
   }

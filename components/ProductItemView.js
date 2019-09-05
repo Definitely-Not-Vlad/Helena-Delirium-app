@@ -13,11 +13,16 @@ import {
   Divider,
 } from '@shoutem/ui';
 
-import { addToCart, removeFromCart } from '../redux';
+import {
+  addToCart,
+  removeFromCart,
+  setAddedToCart,
+  setRemovedFromCart,
+} from '../redux';
 
 class ProductItemView extends PureComponent {
   static propTypes = {
-    item: PropTypes.object,
+    product: PropTypes.object,
     onPress: PropTypes.func,
   }
 
@@ -25,39 +30,66 @@ class ProductItemView extends PureComponent {
     return (_.truncate(subtitle, { length: 25, separator: ' ' }));
   }
 
-  render() {
-    const { item, onPress, addToCart, removeFromCart } = this.props;
+  resolveActionButtonActions(product) {
+    const {
+      addToCart,
+      removeFromCart,
+      setAddedToCart,
+      setRemovedFromCart,
+    } = this.props;
 
-    const { nameColor } = item;
+    const { name } = product;
+
+    if (product.canAddToCart) {
+      addToCart(product);
+      setAddedToCart(name);
+    }
+    else {
+      removeFromCart(name);
+      setRemovedFromCart(name);
+    }
+  }
+
+  renderActionButton(product) {
+    const addText = 'Add to Cart';
+    const removeText = 'Remove from Cart';
+    const resolvedText = product.canAddToCart ? addText : removeText;
+
+    return (
+      <TouchableOpacity
+        onPress={() => this.resolveActionButtonActions(product)}
+      >
+        <Caption>{resolvedText}</Caption>
+      </TouchableOpacity>
+    );
+  }
+
+  render() {
+    const { product, onPress, addToCart, removeFromCart } = this.props;
+
+    const { nameColor } = product;
 
     return (
       <TouchableOpacity onPress={onPress}>
         <Row>
           <Image
             styleName="medium-square rounded-corners placeholder"
-            source={{ uri: item.image.url }}
+            source={{ uri: product.image.url }}
           />
           <View styleName="vertical stretch h-center space-between">
             <Subtitle
               numberOfLines={1}
               style={{ color: nameColor }}
             >
-              {item.name}
+              {product.name}
             </Subtitle>
-            <Caption>{this.resolveSubtitle(item.subtitle)}</Caption>
+            <Caption>{this.resolveSubtitle(product.subtitle)}</Caption>
             <View styleName="horizontal h-center">
-              <Caption>{item.netto}</Caption>
+              <Caption>{product.netto}</Caption>
               <Caption>   ·   </Caption>
-              <Caption>{item.price}</Caption>
+              <Caption>{product.price}</Caption>
             </View>
-            <View styleName="horizontal space-between">
-              <TouchableOpacity onPress={() => addToCart(item)}>
-                <Caption>Add to cart </Caption>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => removeFromCart(item.name)}>
-                <Caption> Remove</Caption>
-              </TouchableOpacity>
-            </View>
+            {this.renderActionButton(product)}
           </View>
         </Row>
         <Divider styleName="line" />
@@ -66,4 +98,11 @@ class ProductItemView extends PureComponent {
   }
 }
 
-export default connect(null, { addToCart, removeFromCart })(ProductItemView)
+const mapDispatchToProps = {
+  addToCart,
+  removeFromCart,
+  setAddedToCart,
+  setRemovedFromCart,
+};
+
+export default connect(null, mapDispatchToProps)(ProductItemView)

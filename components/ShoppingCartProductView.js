@@ -1,8 +1,6 @@
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-
 import {
   Row,
   TouchableOpacity,
@@ -13,21 +11,37 @@ import {
   TextInput,
 } from '@shoutem/ui';
 
-import { changeProductQuantity, removeFromCart } from '../redux';
+import {
+  changeProductQuantity,
+  removeFromCart,
+  setRemovedFromCart,
+} from '../redux';
 
 class ShoppingCartProductView extends PureComponent {
   static propTypes = {
     product: PropTypes.object,
   }
 
+  removeFromShoppingCart(name) {
+    const { removeFromCart, setRemovedFromCart } = this.props;
+
+    removeFromCart(name);
+    setRemovedFromCart(name);
+  }
+
   render() {
-    const {
-      changeProductQuantity,
-      product,
-      removeFromCart,
-    } = this.props;
+    const { changeProductQuantity, product } = this.props;
 
     const { image, name } = product;
+    const textInputProps = {
+      style: { borderWidth: 1, borderRadius: 6 },
+      textAlign: "center",
+      keyboardType: "numeric",
+      maxLength: 2,
+      placeholder: "1",
+      onEndEditing: (e) =>
+        changeProductQuantity(name, parseInt(e.nativeEvent.text))
+    }
 
     return (
       <Row>
@@ -36,22 +50,15 @@ class ShoppingCartProductView extends PureComponent {
           source={{ uri: image.url }}
         />
         <View styleName="horizontal stretch space-between">
-          <View styleName="vertical space-between">
+          <View styleName="vertical stretch space-between">
             <Subtitle numberOfLines={1}>{name}</Subtitle>
-            <TouchableOpacity onPress={() => removeFromCart(name)}>
+            <TouchableOpacity
+              onPress={() => this.removeFromShoppingCart(name)}
+            >
               <Subtitle>Remove</Subtitle>
             </TouchableOpacity>
           </View>
-          <TextInput
-            style={{ borderWidth: 1, borderRadius: 6 }}
-            textAlign={"center"}
-            keyboardType="numeric"
-            maxLength={2}
-            placeholder="1"
-            onEndEditing={(e) =>
-              changeProductQuantity(name, parseInt(e.nativeEvent.text))
-            }
-          />
+          <TextInput {...textInputProps} />
         </View>
         <Divider styleName="line" />
       </Row>
@@ -62,6 +69,7 @@ class ShoppingCartProductView extends PureComponent {
 const mapDispatchToProps = {
   changeProductQuantity,
   removeFromCart,
+  setRemovedFromCart,
 }
 
 export default connect(null, mapDispatchToProps)(ShoppingCartProductView)
