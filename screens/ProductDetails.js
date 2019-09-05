@@ -62,20 +62,20 @@ class ProductDetails extends PureComponent {
     const addText = 'Add to Cart';
     const removeText = 'Remove from Cart';
     const resolvedText = product.canAddToCart ? addText : removeText;
+    const buttonStyling = {
+      borderWidth: 1,
+      borderRadius: 8,
+      paddingVertical: 8,
+      paddingHorizontal: 12,
+      backgroundColor: '#EFEFEF',
+    };
 
     return (
       <TouchableOpacity
         onPress={() => this.resolveActionButtonActions(product)}
+        style={buttonStyling}
       >
-        <View style={{
-          borderWidth: 1,
-          borderRadius: 8,
-          paddingVertical: 8,
-          paddingHorizontal: 14,
-          backgroundColor: '#EFEFEF',
-        }}>
-          <Subtitle>{resolvedText}</Subtitle>
-        </View>
+        <Subtitle>{resolvedText}</Subtitle>
       </TouchableOpacity>
     );
   }
