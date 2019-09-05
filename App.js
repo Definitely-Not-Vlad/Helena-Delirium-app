@@ -6,12 +6,12 @@ import {
 } from 'react-navigation';
 import { Provider } from 'react-redux';
 
+import TabBarIcon from './components/TabBarIcon';
 import NewsList from './screens/NewsList';
 import NewsDetails from './screens/NewsDetails';
 import ProductList from './screens/ProductList';
 import ProductDetails from './screens/ProductDetails';
 import ShoppingCart from './screens/ShoppingCart';
-
 import { store } from './redux';
 
 const NewsStack = createStackNavigator({
@@ -69,16 +69,25 @@ const AppNavigator = createBottomTabNavigator(
     ShoppingCart: ShoppingCartStack,
   },
   {
-    navigationOptions: {
-      header: null
-    },
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({tintColor}) => {
+        const { routeName } = navigation.state;
+
+        return (
+          <TabBarIcon
+            tintColor={tintColor}
+            iconName={routeName}
+          />
+        )
+      },
+    }),
     initialRouteName: "News",
     tabBarOptions: {
       activeTintColor: '#EFEFEF',
       inactiveTintColor: '#080706',
       activeBackgroundColor: '#080706',
       inactiveBackgroundColor: '#EFEFEF',
-      showIcon: false,
+      showLabel: false,
       tabStyle: {
         justifyContent: 'center',
       },

@@ -10,37 +10,58 @@ import {
   Subtitle,
   View,
   Divider,
+  TextInput,
 } from '@shoutem/ui';
 
-import { removeFromCart } from '../redux';
+import { changeProductQuantity, removeFromCart } from '../redux';
 
 class ShoppingCartProductView extends PureComponent {
   static propTypes = {
-    item: PropTypes.object,
-    onPress: PropTypes.func,
+    product: PropTypes.object,
   }
 
   render() {
-    const { item, onPress, removeFromCart } = this.props;
+    const {
+      changeProductQuantity,
+      product,
+      removeFromCart,
+    } = this.props;
+
+    const { image, name } = product;
 
     return (
-      <TouchableOpacity onPress={onPress}>
-        <Row>
-          <Image
-            styleName="small rounded-corners placeholder"
-            source={{ uri: item.image.url }}
-          />
-          <View styleName="vertical stretch space-between">
-            <Subtitle numberOfLines={1}>{item.name}</Subtitle>
-            <TouchableOpacity onPress={() => removeFromCart(item.name)}>
+      <Row>
+        <Image
+          styleName="small rounded-corners placeholder"
+          source={{ uri: image.url }}
+        />
+        <View styleName="horizontal stretch space-between">
+          <View styleName="vertical space-between">
+            <Subtitle numberOfLines={1}>{name}</Subtitle>
+            <TouchableOpacity onPress={() => removeFromCart(name)}>
               <Subtitle>Remove</Subtitle>
             </TouchableOpacity>
           </View>
-        </Row>
+          <TextInput
+            style={{ borderWidth: 1, borderRadius: 6 }}
+            textAlign={"center"}
+            keyboardType="numeric"
+            maxLength={2}
+            placeholder="1"
+            onEndEditing={(e) =>
+              changeProductQuantity(name, parseInt(e.nativeEvent.text))
+            }
+          />
+        </View>
         <Divider styleName="line" />
-      </TouchableOpacity>
+      </Row>
     );
   }
 }
 
-export default connect(null, { removeFromCart })(ShoppingCartProductView)
+const mapDispatchToProps = {
+  changeProductQuantity,
+  removeFromCart,
+}
+
+export default connect(null, mapDispatchToProps)(ShoppingCartProductView)

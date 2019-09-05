@@ -1,42 +1,32 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Screen, ListView } from '@shoutem/ui';
+import { Screen, ListView, View, Title } from '@shoutem/ui';
 
 import ShoppingCartProductView from '../components/ShoppingCartProductView';
 
 import { removeFromCart } from '../redux';
 
 class ShoppingCart extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.renderRow = this.renderRow.bind(this);
-    this.openProductDetails = this.openProductDetails.bind(this);
-  }
-
-  openProductDetails(product) {
-    const { navigation } = this.props;
-
-    navigation.navigate('ProductDetails', { product: product });
-  }
-
-  renderRow(item) {
-    return (
-      <ShoppingCartProductView
-        item={item}
-        onPress={() => this.openProductDetails(item)}
-      />
-    );
-  }
-
   render() {
     const { data } = this.props;
+
+    const renderRow = (product) => <ShoppingCartProductView product={product} />
+
+    if (!data.length) {
+      return (
+        <Screen style={{ backgroundColor: '#F2F1EF' }}>
+          <View styleName="fill-parent vertical v-center xl-gutter-horizontal">
+            <Title>You haven't added anything to your shopping cart yet.</Title>
+          </View>
+        </Screen>
+      )
+    }
 
     return (
       <Screen style={{ backgroundColor: '#F2F1EF' }}>
         <ListView
           data={data}
-          renderRow={this.renderRow}
+          renderRow={renderRow}
         />
       </Screen>
     );
@@ -44,10 +34,8 @@ class ShoppingCart extends PureComponent {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
-
   return {
-    data: state.shoppingCart.products,
+    data: state.shoppingCart.cartContents,
   }
 }
 

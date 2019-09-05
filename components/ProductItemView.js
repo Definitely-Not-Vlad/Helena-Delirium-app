@@ -19,7 +19,6 @@ class ProductItemView extends PureComponent {
   static propTypes = {
     item: PropTypes.object,
     onPress: PropTypes.func,
-    addToCart: PropTypes.func,
   }
 
   resolveSubtitle(subtitle) {
@@ -53,10 +52,10 @@ class ProductItemView extends PureComponent {
             </View>
             <View styleName="horizontal space-between">
               <TouchableOpacity onPress={() => addToCart(item)}>
-                <Subtitle>Add to cart</Subtitle>
+                <Caption>Add to cart </Caption>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => removeFromCart(item.name)}>
-                <Subtitle>Remove</Subtitle>
+                <Caption> Remove</Caption>
               </TouchableOpacity>
             </View>
           </View>
