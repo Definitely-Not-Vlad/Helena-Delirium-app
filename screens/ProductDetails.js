@@ -12,6 +12,7 @@ import {
   Caption,
   View,
   Text,
+  TouchableOpacity,
   Divider,
 } from '@shoutem/ui';
 
@@ -66,7 +67,15 @@ class ProductDetails extends PureComponent {
       <TouchableOpacity
         onPress={() => this.resolveActionButtonActions(product)}
       >
-        <Caption>{resolvedText}</Caption>
+        <View style={{
+          borderWidth: 1,
+          borderRadius: 8,
+          paddingVertical: 8,
+          paddingHorizontal: 14,
+          backgroundColor: '#EFEFEF',
+        }}>
+          <Subtitle>{resolvedText}</Subtitle>
+        </View>
       </TouchableOpacity>
     );
   }
@@ -89,12 +98,12 @@ class ProductDetails extends PureComponent {
         <Subtitle numberOfLines={1} styleName="md-gutter-bottom">
           {product.subtitle}
         </Subtitle>
-        <View virtual styleName="horizontal h-center">
+        <View virtual styleName="horizontal h-center md-gutter-bottom">
           <Caption>{product.netto}</Caption>
           <Caption>   ·   </Caption>
           <Caption>{product.price}</Caption>
         </View>
-
+        {this.renderActionButton()}
       </View>
     );
   }
