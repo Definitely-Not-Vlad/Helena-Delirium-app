@@ -21,8 +21,6 @@ class ShoppingCart extends PureComponent {
   openCheckoutScreen() {
     const { navigation } = this.props;
 
-    console.log("Navigating to CheckoutScreen");
-
     navigation.navigate('CheckoutScreen');
   }
 
