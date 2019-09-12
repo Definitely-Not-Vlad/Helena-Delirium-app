@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import {
-  Row,
-  TouchableOpacity,
-  Image,
-  Subtitle,
-  View,
   Divider,
+  Image,
+  Row,
   TextInput,
+  Title,
+  TouchableOpacity,
+  View,
 } from '@shoutem/ui';
 
 import {
@@ -22,7 +22,7 @@ class ShoppingCartProductView extends PureComponent {
     product: PropTypes.object,
   }
 
-  removeFromShoppingCart(name) {
+  removeFromCart(name) {
     const { removeFromCart, setRemovedFromCart } = this.props;
 
     removeFromCart(name);
@@ -32,7 +32,7 @@ class ShoppingCartProductView extends PureComponent {
   render() {
     const { changeProductQuantity, product } = this.props;
 
-    const { image, name } = product;
+    const { image, name, nameColor } = product;
     const textInputProps = {
       style: { borderWidth: 1, borderRadius: 6 },
       textAlign: "center",
@@ -51,11 +51,11 @@ class ShoppingCartProductView extends PureComponent {
         />
         <View styleName="horizontal stretch space-between">
           <View styleName="vertical stretch space-between">
-            <Subtitle numberOfLines={1}>{name}</Subtitle>
-            <TouchableOpacity
-              onPress={() => this.removeFromShoppingCart(name)}
-            >
-              <Subtitle>Remove</Subtitle>
+            <Title numberOfLines={1} style={{ color: nameColor }}>
+              {name}
+            </Title>
+            <TouchableOpacity onPress={() => this.removeFromCart(name)}>
+              <Title>Remove</Title>
             </TouchableOpacity>
           </View>
           <TextInput {...textInputProps} />

@@ -3,14 +3,21 @@ import { combineReducers } from 'redux';
 import {
   ADD_TO_CART,
   CHANGE_PRODUCT_QUANTITY,
+  REMOVE_ALL_FROM_CART,
   REMOVE_FROM_CART,
 
   SET_ADDED_TO_CART,
+  SET_ALL_REMOVED_FROM_CART,
   SET_REMOVED_FROM_CART,
+
+  SEND_ORDER_ERROR,
+  SEND_ORDER_PENDING,
+  SEND_ORDER_SUCCESS,
 } from './actionTypes';
 
 const initialCatalogue = { products: require('../jsonData/products.json')};
 const initialShoppingCartState = { cartContents: [] };
+const initialOrder = { error: null, pending: false }
 
 function shoppingCart(state = initialShoppingCartState, action) {
   switch (action.type) {
@@ -36,6 +43,9 @@ function shoppingCart(state = initialShoppingCartState, action) {
           return product;
         })
       });
+    case REMOVE_ALL_FROM_CART: {
+      return initialShoppingCartState;
+    }
     case REMOVE_FROM_CART:
       return Object.assign({}, state, {
         cartContents:
@@ -60,6 +70,12 @@ function catalogue(state = initialCatalogue, action) {
           return product;
         })
       });
+    case SET_ALL_REMOVED_FROM_CART:
+      return Object.assign({}, state, {
+        products: state.products.map((product) => {
+          return Object.assign({}, product, { canAddToCart: true });
+        })
+      });
     case SET_REMOVED_FROM_CART:
       return Object.assign({}, state, {
         products: state.products.map((product) => {
@@ -77,9 +93,29 @@ function catalogue(state = initialCatalogue, action) {
   }
 }
 
+function order(state = initialOrder, action) {
+  switch (action.type) {
+    case SEND_ORDER_ERROR:
+      return Object.assign({}, state, {
+        error: action.error,
+        pending: false,
+      });
+    case SEND_ORDER_PENDING:
+      return Object.assign({}, state, {
+        error: null,
+        pending: true,
+      });
+    case SEND_ORDER_SUCCESS:
+      return initialOrder;
+    default:
+      return state;
+  }
+}
+
 const helenaDelirium = combineReducers({
   shoppingCart,
-  catalogue
+  catalogue,
+  order
 });
 
 export default helenaDelirium;

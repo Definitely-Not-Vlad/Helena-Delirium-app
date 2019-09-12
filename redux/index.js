@@ -5,8 +5,10 @@ export store from './store';
 export {
   addToCart,
   changeProductQuantity,
+  removeAllFromCart,
   removeFromCart,
   setAddedToCart,
+  setAllRemovedFromCart,
   setRemovedFromCart,
 } from './actions';
 
@@ -16,3 +18,7 @@ export {
   getProductFromCatalogue,
   getShoppingCart,
 } from './selectors';
+
+// middleware actions
+
+export { sendOrder } from './sendOrder';

@@ -101,7 +101,7 @@ class ProductDetails extends PureComponent {
         <View virtual styleName="horizontal h-center md-gutter-bottom">
           <Caption>{product.netto}</Caption>
           <Caption>   ·   </Caption>
-          <Caption>{product.price}</Caption>
+          <Caption>{product.price}kn</Caption>
         </View>
         {this.renderActionButton()}
       </View>

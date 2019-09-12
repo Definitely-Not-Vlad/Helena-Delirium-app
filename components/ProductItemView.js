@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
   Subtitle,
+  Title,
   Caption,
   View,
   Divider,
@@ -59,7 +60,7 @@ class ProductItemView extends PureComponent {
       <TouchableOpacity
         onPress={() => this.resolveActionButtonActions(product)}
       >
-        <Caption>{resolvedText}</Caption>
+        <Subtitle>{resolvedText}</Subtitle>
       </TouchableOpacity>
     );
   }
@@ -77,17 +78,14 @@ class ProductItemView extends PureComponent {
             source={{ uri: product.image.url }}
           />
           <View styleName="vertical stretch h-center space-between">
-            <Subtitle
-              numberOfLines={1}
-              style={{ color: nameColor }}
-            >
+            <Title numberOfLines={1} style={{ color: nameColor }} >
               {product.name}
-            </Subtitle>
+            </Title>
             <Caption>{this.resolveSubtitle(product.subtitle)}</Caption>
             <View styleName="horizontal h-center">
               <Caption>{product.netto}</Caption>
               <Caption>   ·   </Caption>
-              <Caption>{product.price}</Caption>
+              <Caption>{product.price}kn</Caption>
             </View>
             {this.renderActionButton(product)}
           </View>

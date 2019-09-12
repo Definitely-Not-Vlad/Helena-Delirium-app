@@ -55,7 +55,12 @@ const ShoppingCartStack = createStackNavigator({
     },
     ProductDetails: ProductDetails,
   },
-  CheckoutScreen: CheckoutScreen,
+  CheckoutScreen: {
+    screen: CheckoutScreen,
+    navigationOptions: {
+      title: 'Checkout',
+    }
+  }
 })
 
 ShoppingCartStack.navigationOptions = ({ navigation }) => {

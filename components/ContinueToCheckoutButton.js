@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 
 import { Title, TouchableOpacity, View } from '@shoutem/ui';
 
-export default class CheckoutButton extends PureComponent {
+export default class ContinueToCheckoutButton extends PureComponent {
   static propTypes = {
     onPress: PropTypes.func,
   }
@@ -11,22 +11,22 @@ export default class CheckoutButton extends PureComponent {
   render() {
     const { onPress } = this.props;
 
+    const titleButtonStyling = {
+      backgroundColor: '#EFEFEF',
+      borderWidth: 1,
+      borderRadius: 8,
+      borderColor: '#080706',
+      paddingVertical: 8,
+      paddingHorizontal: 12,
+    };
+
     return (
       <TouchableOpacity onPress={onPress}>
         <View
           styleName="vertical v-center h-center md-gutter-vertical"
           style={{ backgroundColor: '#FFFFFF' }}
         >
-          <Title
-            style={{
-              backgroundColor: '#EFEFEF',
-              borderWidth: 1,
-              borderRadius: 8,
-              borderColor: '#080706',
-              paddingVertical: 8,
-              paddingHorizontal: 12,
-            }}
-          >
+          <Title style={titleButtonStyling}>
             Proceed to Checkout
           </Title>
         </View>

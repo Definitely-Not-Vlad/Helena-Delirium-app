@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { Screen, ListView, View, Title } from '@shoutem/ui';
+import { ListView, Screen, Title, View  } from '@shoutem/ui';
 
-import CheckoutButton from '../components/CheckoutButton';
+import ContinueToCheckoutButton from '../components/ContinueToCheckoutButton';
 import ShoppingCartProductView from '../components/ShoppingCartProductView';
 
 import { getShoppingCart } from '../redux';
@@ -24,32 +24,24 @@ class ShoppingCart extends PureComponent {
     navigation.navigate('CheckoutScreen');
   }
 
-  renderEmptyList() {
-    return (
-      <View
-        styleName="vertical v-center xl-gutter-horizontal"
-        style={{ height: SCREEN_HEIGHT }}
-      >
-        <Title>You haven't added anything to your shopping cart yet.</Title>
-      </View>
-    );
-  }
-
   render() {
     const { data } = this.props;
 
     const renderRow = (product) => <ShoppingCartProductView product={product} />
-    const renderHeader = () => <CheckoutButton onPress={() => this.openCheckoutScreen()} />
 
-    return (
+    return data.length ? (
       <Screen style={{ backgroundColor: '#F2F1EF' }}>
         <ListView
           data={data}
           renderRow={renderRow}
-          ListHeaderComponent={data.length && renderHeader}
           ListEmptyComponent={this.renderEmptyList}
         />
+        <ContinueToCheckoutButton onPress={() => this.openCheckoutScreen()} />
       </Screen>
+    ) : (
+      <View styleName="fill-parent vertical v-center h-center">
+        <Title>Your cart is empty.</Title>
+      </View>
     );
   }
 }
