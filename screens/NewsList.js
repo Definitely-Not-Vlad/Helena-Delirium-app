@@ -5,12 +5,6 @@ import FeaturedNewsItemView from '../components/FeaturedNewsItemView';
 import NewsItemView from '../components/NewsItemView';
 
 export default class NewsList extends PureComponent {
-  static navigationOptions = {
-    navigationOptions: {
-      header: null,
-    }
-  }
-
   constructor(props) {
     super(props);
 
