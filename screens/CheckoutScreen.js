@@ -62,7 +62,7 @@ class CheckoutScreen extends PureComponent {
     };
 
     return products.length ? (
-      <ScrollView>
+      <ScrollView persistentScrollbar>
         <KeyboardAvoidingView
           style={{ backgroundColor: '#F2F1EF' }}
           behavior="padding"

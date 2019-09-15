@@ -25,6 +25,8 @@ class SendOrderForm extends PureComponent {
     this.state = {
       customerName: '',
       customerAddress: '',
+      customerCity: ''.
+      customerPostalCode: '',
       customerProvince: '',
       customerCountry: '',
       customerEmail: '',
@@ -61,6 +63,8 @@ class SendOrderForm extends PureComponent {
     const {
       customerName,
       customerAddress,
+      customerCity,
+      customerPostalCode,
       customerProvince,
       customerCountry,
       customerEmail,
@@ -69,6 +73,8 @@ class SendOrderForm extends PureComponent {
     const formData = [
       customerName,
       customerAddress,
+      customerCity,
+      customerPostalCode,
       customerProvince,
       customerCountry,
       customerEmail,
@@ -84,6 +90,8 @@ class SendOrderForm extends PureComponent {
     const {
       customerName,
       customerAddress,
+      customerCity,
+      customerPostalCode,
       customerProvince,
       customerCountry,
       customerEmail,
@@ -94,6 +102,8 @@ class SendOrderForm extends PureComponent {
       total: this.calculateTotal(),
       customerName,
       customerAddress,
+      customerCity,
+      customerPostalCode,
       customerProvince,
       customerCountry,
       customerEmail,
@@ -103,11 +113,7 @@ class SendOrderForm extends PureComponent {
   }
 
   render() {
-    const { submitOrder } = this.props;
-    const { customerEmail } = this.state;
-
-    const shouldDisableSend = !this.isShippingInfoComplete() && !customerEmail;
-
+    const shouldDisableSend = !this.isShippingInfoComplete();
     const buttonStyling = {
       backgroundColor: '#EFEFEF',
       borderWidth: 1,
@@ -139,6 +145,28 @@ class SendOrderForm extends PureComponent {
           style={{ backgroundColor: '#EFEFEF' }}
           onEndEditing={
             (e) => this.setState({ customerAddress: e.nativeEvent.text })
+          }
+        />
+
+        <Title styleName="sm-gutter-left sm-gutter-top">
+          City:
+        </Title>
+        <TextInput
+          placeholder="Kutina"
+          style={{ backgroundColor: '#EFEFEF' }}
+          onEndEditing={
+            (e) => this.setState({ customerCity: e.nativeEvent.text })
+          }
+        />
+
+        <Title styleName="sm-gutter-left sm-gutter-top">
+          Address:
+        </Title>
+        <TextInput
+          placeholder="44320"
+          style={{ backgroundColor: '#EFEFEF' }}
+          onEndEditing={
+            (e) => this.setState({ customerPostalCode: e.nativeEvent.text })
           }
         />
 
