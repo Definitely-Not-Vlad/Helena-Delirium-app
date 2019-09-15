@@ -25,7 +25,7 @@ class SendOrderForm extends PureComponent {
     this.state = {
       customerName: '',
       customerAddress: '',
-      customerCity: ''.
+      customerCity: '',
       customerPostalCode: '',
       customerProvince: '',
       customerCountry: '',
