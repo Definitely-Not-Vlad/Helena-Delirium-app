@@ -42,7 +42,9 @@ export default class NewsDetails extends PureComponent {
         <Title styleName="centered md-gutter-bottom">
           {newsItem.name}
         </Title>
-        <Subtitle numberOfLines={1} styleName="md-gutter-bottom">{newsItem.endDate}</Subtitle>
+        <Subtitle numberOfLines={1} styleName="md-gutter-bottom">
+          {newsItem.endDate}
+        </Subtitle>
       </View>
     );
   }

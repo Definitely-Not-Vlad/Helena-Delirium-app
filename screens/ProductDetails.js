@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import {
@@ -11,28 +12,77 @@ import {
   Caption,
   View,
   Text,
+  TouchableOpacity,
   Divider,
 } from '@shoutem/ui';
 
-export default class ProductDetails extends PureComponent {
-  static navigationOptions = ({ navigation }) => {
-    const product = navigation.getParam('product');
+import {
+  addToCart,
+  getProductFromCatalogue,
+  removeFromCart,
+  setAddedToCart,
+  setRemovedFromCart,
+} from '../redux';
 
-    return {
-      title: product.name || 'Prirodna Kozmetika',
-    };
+class ProductDetails extends PureComponent {
+  static navigationOptions = ({ navigation }) => {
+    return { title: navigation.getParam('name') };
   }
 
-  renderImage(product) {
+  renderImage() {
+    const { product } = this.props;
+
+    return <Image styleName="large" source={{ uri: product.image.url }} />
+  }
+
+  resolveActionButtonActions() {
+    const {
+      addToCart,
+      product,
+      removeFromCart,
+      setAddedToCart,
+      setRemovedFromCart,
+    } = this.props;
+
+    const { name } = product;
+
+    if (product.canAddToCart) {
+      addToCart(product);
+      setAddedToCart(name);
+    }
+    else {
+      removeFromCart(name);
+      setRemovedFromCart(name);
+    }
+  }
+
+  renderActionButton() {
+    const { product } = this.props;
+
+    const addText = 'Add to Cart';
+    const removeText = 'Remove from Cart';
+    const resolvedText = product.canAddToCart ? addText : removeText;
+    const buttonStyling = {
+      borderWidth: 1,
+      borderRadius: 8,
+      paddingVertical: 8,
+      paddingHorizontal: 12,
+      backgroundColor: '#EFEFEF',
+    };
+
     return (
-      <Image
-        styleName="large"
-        source={{ uri: _.get(product, 'image.url') }}
-      />
+      <TouchableOpacity
+        onPress={() => this.resolveActionButtonActions(product)}
+        style={buttonStyling}
+      >
+        <Subtitle>{resolvedText}</Subtitle>
+      </TouchableOpacity>
     );
   }
 
-  renderDetails(product) {
+  renderDetails() {
+    const { product } = this.props;
+
     return (
       <View
         virtual
@@ -41,21 +91,26 @@ export default class ProductDetails extends PureComponent {
       >
         <Title
           styleName="centered md-gutter-bottom"
-          style={{color:product.nameColor}}
+          style={{color: product.nameColor}}
         >
           {product.name}
         </Title>
-        <Subtitle numberOfLines={1} styleName="md-gutter-bottom">{product.subtitle}</Subtitle>
-        <View virtual styleName="horizontal h-center">
+        <Subtitle numberOfLines={1} styleName="md-gutter-bottom">
+          {product.subtitle}
+        </Subtitle>
+        <View virtual styleName="horizontal h-center md-gutter-bottom">
           <Caption>{product.netto}</Caption>
           <Caption>   ·   </Caption>
-          <Caption>{product.price}</Caption>
+          <Caption>{product.price}kn</Caption>
         </View>
+        {this.renderActionButton()}
       </View>
     );
   }
 
-  renderDescription(product) {
+  renderDescription() {
+    const { product } = this.props;
+
     return(
       <View styleName="md-gutter" style={{ backgroundColor: '#EFEFEF'}}>
         <Text styleName="multiline">{product.description}</Text>
@@ -64,19 +119,34 @@ export default class ProductDetails extends PureComponent {
   }
 
   render() {
-    const { navigation } = this.props;
-
-    const product = navigation.getParam('product');
+    const { product } = this.props;
 
     return (
       <Screen>
         <ScrollView>
-          {this.renderImage(product)}
-          {this.renderDetails(product)}
+          {this.renderImage()}
+          {this.renderDetails()}
           <Divider styleName="line" />
-          {this.renderDescription(product)}
+          {this.renderDescription()}
         </ScrollView>
       </Screen>
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  const productName = ownProps.navigation.getParam('name');
+
+  return {
+    product: getProductFromCatalogue(state, productName)
+  }
+};
+
+const mapDispatchToProps = {
+  addToCart,
+  removeFromCart,
+  setAddedToCart,
+  setRemovedFromCart,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails)
