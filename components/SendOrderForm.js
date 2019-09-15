@@ -160,7 +160,7 @@ class SendOrderForm extends PureComponent {
         />
 
         <Title styleName="sm-gutter-left sm-gutter-top">
-          Address:
+          Postal code:
         </Title>
         <TextInput
           placeholder="44320"
@@ -204,7 +204,7 @@ class SendOrderForm extends PureComponent {
         />
         <TouchableOpacity
           onPress={this.submitOrder}
-          disabled={shouldDisableSend && !customerEmail}
+          disabled={shouldDisableSend}
         >
           <View styleName="vertical v-center h-center md-gutter-vertical">
             <Heading style={buttonStyling}>Send Order</Heading>
