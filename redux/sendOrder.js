@@ -24,12 +24,15 @@ export function sendOrder(order) {
 
     fetch(resolvedLocalhost, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Accept': 'text/html',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(order),
     })
     .then(response => {
-      if (response.error) {
-        throw(response.error);
+      if (response.status !== 200) {
+        throw('Failed to send email.');
       }
 
       dispatch(removeAllFromCart());

@@ -10,6 +10,7 @@ import {
   SET_ALL_REMOVED_FROM_CART,
   SET_REMOVED_FROM_CART,
 
+  CLEAR_ORDER_ERROR,
   SEND_ORDER_ERROR,
   SEND_ORDER_PENDING,
   SEND_ORDER_SUCCESS,
@@ -95,6 +96,8 @@ function catalogue(state = initialCatalogue, action) {
 
 function order(state = initialOrder, action) {
   switch (action.type) {
+    case CLEAR_ORDER_ERROR:
+      return initialOrder;
     case SEND_ORDER_ERROR:
       return Object.assign({}, state, {
         error: action.error,
