@@ -11,6 +11,7 @@ import {
   SET_REMOVED_FROM_CART,
 
   CLEAR_ORDER_ERROR,
+  SAVE_ORDER_INFO,
   SEND_ORDER_ERROR,
   SEND_ORDER_PENDING,
   SEND_ORDER_SUCCESS,
@@ -18,7 +19,7 @@ import {
 
 const initialCatalogue = { products: require('../jsonData/products.json')};
 const initialShoppingCartState = { cartContents: [] };
-const initialOrder = { error: null, pending: false }
+const initialOrder = { error: null, orderInfo: {}, pending: false }
 
 function shoppingCart(state = initialShoppingCartState, action) {
   switch (action.type) {
@@ -62,9 +63,7 @@ function catalogue(state = initialCatalogue, action) {
     case SET_ADDED_TO_CART:
       return Object.assign({}, state, {
         products: state.products.map((product) => {
-          const { name } = product;
-
-          if (name === action.name) {
+          if (product.name === action.name) {
             return Object.assign({}, product, { canAddToCart: false });
           }
 
@@ -97,7 +96,13 @@ function catalogue(state = initialCatalogue, action) {
 function order(state = initialOrder, action) {
   switch (action.type) {
     case CLEAR_ORDER_ERROR:
-      return initialOrder;
+      return Object.assign({}, state, {
+        error: null
+      });
+    case SAVE_ORDER_INFO:
+      return Object.assign({}, state, {
+        orderInfo: orderInfo,
+      });
     case SEND_ORDER_ERROR:
       return Object.assign({}, state, {
         error: action.error,
@@ -109,7 +114,10 @@ function order(state = initialOrder, action) {
         pending: true,
       });
     case SEND_ORDER_SUCCESS:
-      return initialOrder;
+      return Object.assign({}, state, {
+        error: null,
+        pending: false,
+      });
     default:
       return state;
   }

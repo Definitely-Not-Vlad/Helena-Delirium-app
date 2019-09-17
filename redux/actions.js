@@ -74,6 +74,13 @@ export function clearOrderError() {
   }
 }
 
+export function saveOrderInfo(orderInfo) {
+  return {
+    type: SAVE_ORDER_INFO,
+    orderInfo
+  }
+}
+
 export function sendOrderError(error) {
   return {
     type: SEND_ORDER_ERROR,

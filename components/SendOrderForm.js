@@ -12,7 +12,12 @@ import {
   View,
 } from '@shoutem/ui';
 
-import { getShoppingCart, sendOrder } from '../redux';
+import {
+  getSavedOrderInfo,
+  getShoppingCart,
+  saveOrderInfo,
+  sendOrder,
+} from '../redux';
 
 class SendOrderForm extends PureComponent {
   constructor(props) {
@@ -23,14 +28,22 @@ class SendOrderForm extends PureComponent {
     this.isShippingInfoComplete = this.isShippingInfoComplete.bind(this);
 
     this.state = {
-      customerName: '',
-      customerAddress: '',
-      customerCity: '',
-      customerPostalCode: '',
-      customerProvince: '',
-      customerCountry: '',
-      customerEmail: '',
+      orderInfo: {
+        customerName: '',
+        customerAddress: '',
+        customerCity: '',
+        customerPostalCode: '',
+        customerProvince: '',
+        customerCountry: '',
+        customerEmail: '',
+      }
     }
+  }
+
+  componentDidMount() {
+    const { savedOrderInfo } = this.props;
+
+    this.setState({ orderInfo: savedOrderInfo });
   }
 
   calculateTotal() {
@@ -60,26 +73,17 @@ class SendOrderForm extends PureComponent {
   }
 
   isShippingInfoComplete() {
-    const {
-      customerName,
-      customerAddress,
-      customerCity,
-      customerPostalCode,
-      customerProvince,
-      customerCountry,
-      customerEmail,
-    } = this.state;
+    const { orderInfo } = this.state;
 
     const formData = [
-      customerName,
-      customerAddress,
-      customerCity,
-      customerPostalCode,
-      customerProvince,
-      customerCountry,
-      customerEmail,
+      orderInfo.customerName,
+      orderInfo.customerAddress,
+      orderInfo.customerCity,
+      orderInfo.customerPostalCode,
+      orderInfo.customerProvince,
+      orderInfo.customerCountry,
+      orderInfo.customerEmail,
     ];
-
     const hasEmptyField = formData.some(field => field === '');
 
     return !hasEmptyField;
@@ -87,32 +91,25 @@ class SendOrderForm extends PureComponent {
 
   submitOrder() {
     const { products, sendOrder } = this.props;
-    const {
-      customerName,
-      customerAddress,
-      customerCity,
-      customerPostalCode,
-      customerProvince,
-      customerCountry,
-      customerEmail,
-    } = this.state;
+    const { orderInfo } = this.state;
 
     const order = {
       products: products,
       total: this.calculateTotal(),
-      customerName,
-      customerAddress,
-      customerCity,
-      customerPostalCode,
-      customerProvince,
-      customerCountry,
-      customerEmail,
+      customerAddress: orderInfo.customerAddress,
+      customerCity: orderInfo.customerCity,
+      customerCountry: orderInfo.customerCountry,
+      customerEmail: orderInfo.customerEmail,
+      customerPostalCode: orderInfo.customerPostalCode,
+      customerProvince: orderInfo.customerProvince,
     };
 
     sendOrder(order);
   }
 
   render() {
+    const { orderInfo } = this.state;
+
     const shouldDisableSend = !this.isShippingInfoComplete();
     const buttonStyling = {
       backgroundColor: '#EFEFEF',
@@ -135,6 +132,7 @@ class SendOrderForm extends PureComponent {
           onEndEditing={
             (e) => this.setState({ customerName: e.nativeEvent.text })
           }
+          value={orderInfo.customerName || null}
         />
 
         <Title styleName="sm-gutter-left sm-gutter-top">
@@ -146,6 +144,7 @@ class SendOrderForm extends PureComponent {
           onEndEditing={
             (e) => this.setState({ customerAddress: e.nativeEvent.text })
           }
+          value={orderInfo.customerAddress || null}
         />
 
         <Title styleName="sm-gutter-left sm-gutter-top">
@@ -157,6 +156,7 @@ class SendOrderForm extends PureComponent {
           onEndEditing={
             (e) => this.setState({ customerCity: e.nativeEvent.text })
           }
+          value={orderInfo.customerCity || null}
         />
 
         <Title styleName="sm-gutter-left sm-gutter-top">
@@ -168,6 +168,7 @@ class SendOrderForm extends PureComponent {
           onEndEditing={
             (e) => this.setState({ customerPostalCode: e.nativeEvent.text })
           }
+          value={orderInfo.customerPostalCode || null}
         />
 
         <Title styleName="sm-gutter-left sm-gutter-top">
@@ -179,6 +180,7 @@ class SendOrderForm extends PureComponent {
           onEndEditing={
             (e) => this.setState({ customerProvince: e.nativeEvent.text })
           }
+          value={orderInfo.customerProvince || null}
         />
 
         <Title styleName="sm-gutter-left sm-gutter-top">
@@ -190,6 +192,7 @@ class SendOrderForm extends PureComponent {
           onEndEditing={
             (e) => this.setState({ customerCountry: e.nativeEvent.text })
           }
+          value={orderInfo.customerCountry || null}
         />
 
         <Title styleName="sm-gutter-left sm-gutter-top">
@@ -201,6 +204,7 @@ class SendOrderForm extends PureComponent {
           onEndEditing={
             (e) => this.validateEmail(e.nativeEvent.text)
           }
+          value={orderInfo.customerEmail || null}
         />
         <TouchableOpacity
           onPress={this.submitOrder}
@@ -218,7 +222,13 @@ class SendOrderForm extends PureComponent {
 const mapStateToProps = (state) => {
   return {
     products: getShoppingCart(state),
+    savedOrderInfo: getSavedOrderInfo(state),
   }
 };
 
-export default connect(mapStateToProps, { sendOrder })(SendOrderForm);
+const mapDispatchToProps = {
+  saveOrderInfo,
+  sendOrder,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SendOrderForm);

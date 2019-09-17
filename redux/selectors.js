@@ -27,3 +27,7 @@ const orderSelector = state => state.order;
 export function getOrder(state) {
   return orderSelector(state);
 }
+
+export function getSavedOrderInfo(state) {
+  return _.get(orderSelector(state), 'orderInfo');
+}
