@@ -5,6 +5,7 @@ export store from './store';
 export {
   addToCart,
   changeProductQuantity,
+  clearOrderError,
   removeAllFromCart,
   removeFromCart,
   setAddedToCart,
@@ -15,6 +16,7 @@ export {
 // selectors
 export {
   getCatalogue,
+  getOrder,
   getProductFromCatalogue,
   getShoppingCart,
 } from './selectors';
