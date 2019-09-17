@@ -8,6 +8,7 @@ import {
   SET_ALL_REMOVED_FROM_CART,
   SET_REMOVED_FROM_CART,
 
+  CLEAR_ORDER_ERROR,
   SEND_ORDER_ERROR,
   SEND_ORDER_PENDING,
   SEND_ORDER_SUCCESS,
@@ -66,6 +67,12 @@ export function setRemovedFromCart(name) {
 }
 
 // order actions
+
+export function clearOrderError() {
+  return {
+    type: CLEAR_ORDER_ERROR
+  }
+}
 
 export function sendOrderError(error) {
   return {
