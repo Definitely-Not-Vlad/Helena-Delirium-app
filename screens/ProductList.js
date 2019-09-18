@@ -36,7 +36,7 @@ class ProductList extends PureComponent {
     const { data } = this.props;
 
     return (
-      <Screen style={{ backgroundColor: '#f2f1ef' }}>
+      <Screen style={{ backgroundColor: '#F2F1EF' }}>
         <ListView data={data} renderRow={this.renderRow} />
       </Screen>
     );
