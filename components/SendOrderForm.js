@@ -5,9 +5,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import {
-  Heading,
   Switch,
-  TextInput,
   Title,
   TouchableOpacity,
   View,
@@ -302,7 +300,7 @@ class SendOrderForm extends PureComponent {
             onPress={this.submitOrder}
             disabled={orderInfoIsIncomplete}
           >
-            <Heading style={buttonStyling}>Pošalji Narudžbu</Heading>
+            <Title style={buttonStyling}>Pošalji Narudžbu</Title>
           </TouchableOpacity>
         </View>
       </View>
