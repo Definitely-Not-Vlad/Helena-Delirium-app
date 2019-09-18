@@ -19,7 +19,7 @@ export default class NewsDetails extends PureComponent {
     const newsItem = navigation.getParam('newsItem');
 
     return {
-      title: newsItem.name || 'Novosti',
+      title: newsItem.name || '',
     };
   }
 
