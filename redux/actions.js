@@ -9,6 +9,8 @@ import {
   SET_REMOVED_FROM_CART,
 
   CLEAR_ORDER_ERROR,
+  CLEAR_SAVED_ORDER_INFO,
+  SAVE_ORDER_INFO,
   SEND_ORDER_ERROR,
   SEND_ORDER_PENDING,
   SEND_ORDER_SUCCESS,
@@ -71,6 +73,19 @@ export function setRemovedFromCart(name) {
 export function clearOrderError() {
   return {
     type: CLEAR_ORDER_ERROR
+  }
+}
+
+export function clearSavedOrderInfo() {
+  return {
+    type: CLEAR_SAVED_ORDER_INFO
+  }
+}
+
+export function saveOrderInfo(orderInfo) {
+  return {
+    type: SAVE_ORDER_INFO,
+    orderInfo
   }
 }
 

@@ -9,7 +9,6 @@ import {
   Image,
   Subtitle,
   Title,
-  Caption,
   View,
   Divider,
 } from '@shoutem/ui';
@@ -81,11 +80,11 @@ class ProductItemView extends PureComponent {
             <Title numberOfLines={1} style={{ color: nameColor }} >
               {product.name}
             </Title>
-            <Caption>{this.resolveSubtitle(product.subtitle)}</Caption>
+            <Subtitle>{this.resolveSubtitle(product.subtitle)}</Subtitle>
             <View styleName="horizontal h-center">
-              <Caption>{product.netto}</Caption>
-              <Caption>   ·   </Caption>
-              <Caption>{product.price}kn</Caption>
+              <Subtitle>{product.netto}</Subtitle>
+              <Subtitle>   ·   </Subtitle>
+              <Subtitle>{product.price}kn</Subtitle>
             </View>
             {this.renderActionButton(product)}
           </View>

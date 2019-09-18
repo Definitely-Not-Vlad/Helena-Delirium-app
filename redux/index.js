@@ -6,8 +6,10 @@ export {
   addToCart,
   changeProductQuantity,
   clearOrderError,
+  clearSavedOrderInfo,
   removeAllFromCart,
   removeFromCart,
+  saveOrderInfo,
   setAddedToCart,
   setAllRemovedFromCart,
   setRemovedFromCart,
@@ -18,6 +20,7 @@ export {
   getCatalogue,
   getOrder,
   getProductFromCatalogue,
+  getSavedOrderInfo,
   getShoppingCart,
 } from './selectors';
 
