@@ -27,7 +27,7 @@ export default class ContinueToCheckoutButton extends PureComponent {
           style={{ backgroundColor: '#FFFFFF' }}
         >
           <Title style={titleButtonStyling}>
-            Pripremi Narudžbu
+            Proceed to Checkout
           </Title>
         </View>
       </TouchableOpacity>

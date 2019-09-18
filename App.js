@@ -58,7 +58,7 @@ const ShoppingCartStack = createStackNavigator({
   CheckoutScreen: {
     screen: CheckoutScreen,
     navigationOptions: {
-      title: 'Izradba Narudžbe',
+      title: 'Checkout',
     }
   }
 })
@@ -88,7 +88,7 @@ const AppNavigator = createBottomTabNavigator(
         )
       },
     }),
-    initialRouteName: 'Products',
+    initialRouteName: "News",
     tabBarOptions: {
       activeTintColor: '#EFEFEF',
       inactiveTintColor: '#080706',
