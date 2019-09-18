@@ -86,6 +86,8 @@ class SendOrderForm extends PureComponent {
         { cancelable: false },
       );
 
+      this.setState({ isEmailValid: false });
+
       return;
     }
 
