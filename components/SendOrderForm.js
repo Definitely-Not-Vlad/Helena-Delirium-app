@@ -40,7 +40,6 @@ class SendOrderForm extends PureComponent {
     this.isShippingInfoComplete = this.isShippingInfoComplete.bind(this);
     this.renderSaveInfoSwitch = this.renderSaveInfoSwitch.bind(this);
     this.renderSavedForm = this.renderSavedForm.bind(this);
-    this.shouldRenderSavedForm = this.shouldRenderSavedForm.bind(this);
     this.submitOrder = this.submitOrder.bind(this);
     this.toggleSaveInfo = this.toggleSaveInfo.bind(this);
     this.validateEmail = this.validateEmail.bind(this);
@@ -114,12 +113,6 @@ class SendOrderForm extends PureComponent {
     const hasEmptyField = formData.some(field => field === '');
 
     return (!hasEmptyField && isEmailValid);
-  }
-
-  shouldRenderSavedForm() {
-    const { savedOrderInfo } = this.props;
-
-    return !!savedOrderInfo;
   }
 
   clearOrderInfo() {
