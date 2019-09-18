@@ -51,8 +51,8 @@ class ProductItemView extends PureComponent {
   }
 
   renderActionButton(product) {
-    const addText = 'Add to Cart';
-    const removeText = 'Remove from Cart';
+    const addText = 'Dodaj u Košaricu';
+    const removeText = 'Izbaci iz Košarice';
     const resolvedText = product.canAddToCart ? addText : removeText;
 
     return (

@@ -49,13 +49,13 @@ class ShoppingCartProductView extends PureComponent {
           styleName="small rounded-corners placeholder"
           source={{ uri: image.url }}
         />
-        <View styleName="horizontal stretch space-between">
+        <View styleName="horizontal stretch v-center space-between">
           <View styleName="vertical stretch space-between">
             <Title numberOfLines={1} style={{ color: nameColor }}>
               {name}
             </Title>
             <TouchableOpacity onPress={() => this.removeFromCart(name)}>
-              <Title>Remove</Title>
+              <Title>Izbaci iz Košarice</Title>
             </TouchableOpacity>
           </View>
           <TextInput {...textInputProps} />

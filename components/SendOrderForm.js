@@ -80,8 +80,8 @@ class SendOrderForm extends PureComponent {
 
     if (!emailRegex.test(email)) {
       Alert.alert(
-        'Invalid email',
-        'Please use "example@domain.com" format.',
+        'Neispravan email',
+        'Molimo Vas, koristite "primjer@domena.hr" format.',
         [{ text: 'OK' }],
         { cancelable: false },
       );
