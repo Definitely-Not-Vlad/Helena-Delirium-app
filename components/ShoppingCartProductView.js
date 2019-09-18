@@ -22,6 +22,22 @@ class ShoppingCartProductView extends PureComponent {
     product: PropTypes.object,
   }
 
+  constructor(props) {
+    super(props);
+
+    this.removeFromCart = this.removeFromCart.bind(this);
+
+    this.state = {
+      quantity: '1',
+    }
+  }
+
+  componentDidMount() {
+    const { product: { quantity } } = this.props;
+
+    this.setState({ quantity: quantity.toString() });
+  }
+
   removeFromCart(name) {
     const { removeFromCart, setRemovedFromCart } = this.props;
 
@@ -31,6 +47,7 @@ class ShoppingCartProductView extends PureComponent {
 
   render() {
     const { changeProductQuantity, product } = this.props;
+    const { quantity } = this.state;
 
     const { image, name, nameColor } = product;
     const textInputProps = {
@@ -38,9 +55,10 @@ class ShoppingCartProductView extends PureComponent {
       textAlign: "center",
       keyboardType: "numeric",
       maxLength: 2,
-      placeholder: "1",
-      onEndEditing: (e) =>
-        changeProductQuantity(name, parseInt(e.nativeEvent.text))
+      value: quantity,
+      onChangeText: text => this.setState({ quantity: text }),
+      onEndEditing:
+        e => changeProductQuantity(name, parseInt(e.nativeEvent.text))
     }
 
     return (
