@@ -59,8 +59,8 @@ class ProductDetails extends PureComponent {
   renderActionButton() {
     const { product } = this.props;
 
-    const addText = 'Dodaj u Košaricu';
-    const removeText = 'Izbaci iz Košarice';
+    const addText = 'Add to Cart';
+    const removeText = 'Remove from Cart';
     const resolvedText = product.canAddToCart ? addText : removeText;
     const buttonStyling = {
       borderWidth: 1,

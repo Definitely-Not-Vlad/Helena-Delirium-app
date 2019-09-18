@@ -89,11 +89,9 @@ class CheckoutScreen extends PureComponent {
     const { clearOrderError } = this.props;
 
     Alert.alert(
-      'Greška pri obradi narudžbe',
-      'Došlo je do greške tokom obrade Vaše narudžbe. Molimo Vas pokušajte '
-      + ' ponovno.'
-      + '\nUkoliko i dalje dolazi do greške, molimo Vas javite se putem emaila '
-      + 'na' + SUPPORT_EMAIL,
+      'Error while processing order',
+      'An error occured while processing your order. Please try again.'
+        + '\nIf the error persists, please reach out to ' + SUPPORT_EMAIL,
       [{ text: 'OK', onPress: () => clearOrderError() }],
       { cancelable: false },
     );
@@ -102,8 +100,8 @@ class CheckoutScreen extends PureComponent {
   renderCheckoutForm() {
     if (_.get(this.props, 'order.error')) this.errorPopup();
 
-    const DISCLAIMER = 'Nakon što se pošalje narudžba, biti će obrađena te '
-      + 'poslana poštom. Trenutačno je jedino moguće plaćati pouzećem.';
+    const DISCLAIMER = 'Once sent, your order will be processed and shipped. '
+      + 'Payment is currently exclusively via cash on delivery.';
 
     return this.shouldRenderSpinner() ? this.renderSpinner() : (
       <ScrollView persistentScrollbar>
@@ -117,7 +115,7 @@ class CheckoutScreen extends PureComponent {
           >
             <Title>{DISCLAIMER}</Title>
             <Title styleName="lg-gutter-top md-gutter-bottom">
-              Ukupna cijena narudžbe je {this.calculateTotal()}kn
+              Your total is: {this.calculateTotal()}kn
             </Title>
           </View>
           <SendOrderForm />
@@ -141,16 +139,16 @@ class CheckoutScreen extends PureComponent {
         style={{ backgroundColor: '#F2F1EF' }}
         styleName="fill-parent vertical v-center h-center xl-gutter-bottom"
       >
-        <Title>Vaša narudžba je poslana.</Title>
+        <Title>Your order has been sent.</Title>
         <View styleName="horizontal h-center stretch xl-gutter-top">
           <TouchableOpacity onPress={() => this.navigateToNews()}>
             <Title style={buttonStyling}>
-              Novosti
+              Check News
             </Title>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.navigateToProducts()}>
             <Title styleName="lg-gutter-left" style={buttonStyling}>
-              Katalog
+              Browse Products
             </Title>
           </TouchableOpacity>
         </View>

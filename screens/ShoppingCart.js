@@ -40,7 +40,7 @@ class ShoppingCart extends PureComponent {
       </Screen>
     ) : (
       <View styleName="fill-parent vertical v-center h-center">
-        <Title>Vaša košarica je prazna.</Title>
+        <Title>Your cart is empty.</Title>
       </View>
     );
   }
