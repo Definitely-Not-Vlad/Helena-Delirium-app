@@ -6,6 +6,7 @@ export {
   addToCart,
   changeProductQuantity,
   clearOrderError,
+  clearSavedOrderInfo,
   removeAllFromCart,
   removeFromCart,
   saveOrderInfo,

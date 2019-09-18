@@ -6,6 +6,7 @@ import _ from 'lodash';
 
 import {
   Heading,
+  Switch,
   TextInput,
   Title,
   TouchableOpacity,
@@ -13,37 +14,57 @@ import {
 } from '@shoutem/ui';
 
 import {
+  clearSavedOrderInfo,
   getSavedOrderInfo,
   getShoppingCart,
   saveOrderInfo,
   sendOrder,
 } from '../redux';
+import SavedOrderForm from './SavedOrderForm';
+import FormInput from './SendOrderFormInput';
+
+const EMPTY_INFO = {
+  customerName: '',
+  customerAddress: '',
+  customerCity: '',
+  customerPostalCode: '',
+  customerProvince: '',
+  customerCountry: '',
+  customerEmail: '',
+};
 
 class SendOrderForm extends PureComponent {
   constructor(props) {
     super(props);
 
     this.calculateTotal = this.calculateTotal.bind(this);
-    this.submitOrder = this.submitOrder.bind(this);
+    this.clearOrderInfo = this.clearOrderInfo.bind(this);
     this.isShippingInfoComplete = this.isShippingInfoComplete.bind(this);
+    this.renderSaveInfoSwitch = this.renderSaveInfoSwitch.bind(this);
+    this.renderSavedForm = this.renderSavedForm.bind(this);
+    this.shouldRenderSavedForm = this.shouldRenderSavedForm.bind(this);
+    this.submitOrder = this.submitOrder.bind(this);
+    this.toggleSaveInfo = this.toggleSaveInfo.bind(this);
+    this.validateEmail = this.validateEmail.bind(this);
 
     this.state = {
-      orderInfo: {
-        customerName: '',
-        customerAddress: '',
-        customerCity: '',
-        customerPostalCode: '',
-        customerProvince: '',
-        customerCountry: '',
-        customerEmail: '',
-      }
+      isEmailValid: false,
+      orderInfo: EMPTY_INFO,
+      shouldRenderSavedForm: false,
+      shouldSaveInfo: false,
     }
   }
 
   componentDidMount() {
     const { savedOrderInfo } = this.props;
 
-    this.setState({ orderInfo: savedOrderInfo });
+    if (savedOrderInfo) {
+      this.setState({
+        orderInfo: savedOrderInfo,
+        shouldSaveInfo: true,
+        shouldRenderSavedForm: true,
+      });
+    }
   }
 
   calculateTotal() {
@@ -56,6 +77,8 @@ class SendOrderForm extends PureComponent {
   }
 
   validateEmail(email) {
+    const { orderInfo } = this.state;
+
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
 
     if (!emailRegex.test(email)) {
@@ -69,11 +92,17 @@ class SendOrderForm extends PureComponent {
       return;
     }
 
-    this.setState({ customerEmail: email });
+    this.setState({
+      orderInfo: {
+        ...orderInfo,
+        customerEmail: email
+      },
+      isEmailValid: true,
+    });
   }
 
   isShippingInfoComplete() {
-    const { orderInfo } = this.state;
+    const { isEmailValid, orderInfo } = this.state;
 
     const formData = [
       orderInfo.customerName,
@@ -86,7 +115,53 @@ class SendOrderForm extends PureComponent {
     ];
     const hasEmptyField = formData.some(field => field === '');
 
-    return !hasEmptyField;
+    return (!hasEmptyField && isEmailValid);
+  }
+
+  shouldRenderSavedForm() {
+    const { savedOrderInfo } = this.props;
+
+    return !!savedOrderInfo;
+  }
+
+  clearOrderInfo() {
+    const { clearSavedOrderInfo } = this.props;
+
+    clearSavedOrderInfo();
+    this.setState({
+      isEmailValid: true,
+      shouldRenderSavedForm: false,
+      shouldSaveInfo: false,
+    });
+  }
+
+  toggleSaveInfo() {
+    const { clearSavedOrderInfo, saveOrderInfo } = this.props;
+    const { orderInfo, shouldSaveInfo } = this.state;
+
+    if (!shouldSaveInfo) {
+      saveOrderInfo(orderInfo);
+    } else {
+      clearSavedOrderInfo();
+    }
+
+    this.setState({ shouldSaveInfo: !shouldSaveInfo });
+  }
+
+  renderSaveInfoSwitch() {
+    const { shouldSaveInfo } = this.state;
+
+    return (
+      <View
+        styleName="md-gutter-left sm-gutter-top horizontal stretch v-center"
+      >
+        <Title styleName="sm-gutter-right">Spremi za buduće narudžbe: </Title>
+        <Switch
+          value={shouldSaveInfo}
+          onValueChange={() => this.toggleSaveInfo()}
+        />
+      </View>
+    );
   }
 
   submitOrder() {
@@ -96,124 +171,140 @@ class SendOrderForm extends PureComponent {
     const order = {
       products: products,
       total: this.calculateTotal(),
-      customerAddress: orderInfo.customerAddress,
-      customerCity: orderInfo.customerCity,
-      customerCountry: orderInfo.customerCountry,
-      customerEmail: orderInfo.customerEmail,
-      customerPostalCode: orderInfo.customerPostalCode,
-      customerProvince: orderInfo.customerProvince,
+      ...orderInfo,
     };
 
     sendOrder(order);
   }
 
-  render() {
-    const { orderInfo } = this.state;
+  renderSavedForm() {
+    const { savedOrderInfo } = this.props;
 
-    const shouldDisableSend = !this.isShippingInfoComplete();
     const buttonStyling = {
       backgroundColor: '#EFEFEF',
       borderWidth: 1,
       borderRadius: 8,
       borderColor: '#080706',
-      opacity: shouldDisableSend ? 0.2 : 1,
       paddingVertical: 8,
       paddingHorizontal: 12,
     };
 
     return (
       <View styleName="vertical" style={{ backgroundColor: '#FFFFFF' }}>
-        <Title styleName="sm-gutter-left">
-          Name and surname:
-        </Title>
-        <TextInput
+        <SavedOrderForm onEdit={() => this.clearOrderInfo()} />
+        <View styleName="horizontal h-center stretch md-gutter-vertical">
+          <TouchableOpacity onPress={this.submitOrder}>
+            <Title style={buttonStyling}>Pošalji Narudžbu</Title>
+          </TouchableOpacity>
+        </View>
+      </View>
+    )
+  }
+
+  render() {
+    const { savedOrderInfo } = this.props;
+    const { orderInfo, shouldRenderSavedForm, shouldSaveInfo } = this.state;
+
+    const orderInfoIsIncomplete = !this.isShippingInfoComplete();
+    const buttonStyling = {
+      backgroundColor: '#EFEFEF',
+      borderWidth: 1,
+      borderRadius: 8,
+      borderColor: '#080706',
+      opacity: orderInfoIsIncomplete ? 0.2 : 1,
+      paddingVertical: 8,
+      paddingHorizontal: 12,
+    };
+
+    return shouldRenderSavedForm ? this.renderSavedForm() : (
+      <View styleName="vertical" style={{ backgroundColor: '#FFFFFF' }}>
+        <FormInput
+          onChangeText={text => {this.setState({
+            orderInfo: {
+              ...orderInfo,
+              customerName: text,
+            }
+          })}}
           placeholder="Ivana Ivić"
-          style={{ backgroundColor: '#EFEFEF' }}
-          onEndEditing={
-            (e) => this.setState({ customerName: e.nativeEvent.text })
-          }
-          value={orderInfo.customerName || null}
+          title="Ime i prezime:"
+          value={orderInfo.customerName}
         />
-
-        <Title styleName="sm-gutter-left sm-gutter-top">
-          Address:
-        </Title>
-        <TextInput
-          placeholder="Ivan Gundulić Street 14"
-          style={{ backgroundColor: '#EFEFEF' }}
-          onEndEditing={
-            (e) => this.setState({ customerAddress: e.nativeEvent.text })
-          }
-          value={orderInfo.customerAddress || null}
+        <FormInput
+          onChangeText={text => {this.setState({
+            orderInfo: {
+              ...orderInfo,
+              customerAddress: text,
+            }
+          })}}
+          placeholder="Vukovarska ulica 33"
+          title="Adresa:"
+          value={orderInfo.customerAddress}
         />
-
-        <Title styleName="sm-gutter-left sm-gutter-top">
-          City:
-        </Title>
-        <TextInput
-          placeholder="Kutina"
-          style={{ backgroundColor: '#EFEFEF' }}
-          onEndEditing={
-            (e) => this.setState({ customerCity: e.nativeEvent.text })
-          }
-          value={orderInfo.customerCity || null}
+        <FormInput
+          onChangeText={text => {this.setState({
+            orderInfo: {
+              ...orderInfo,
+              customerCity: text,
+            }
+          })}}
+          placeholder="Osijek"
+          title="Grad:"
+          value={orderInfo.customerCity}
         />
-
-        <Title styleName="sm-gutter-left sm-gutter-top">
-          Postal code:
-        </Title>
-        <TextInput
-          placeholder="44320"
-          style={{ backgroundColor: '#EFEFEF' }}
-          onEndEditing={
-            (e) => this.setState({ customerPostalCode: e.nativeEvent.text })
-          }
-          value={orderInfo.customerPostalCode || null}
+        <FormInput
+          onChangeText={text => {this.setState({
+            orderInfo: {
+              ...orderInfo,
+              customerPostalCode: text,
+            }
+          })}}
+          placeholder="31000"
+          title="Poštanski broj:"
+          value={orderInfo.customerPostalCode}
         />
-
-        <Title styleName="sm-gutter-left sm-gutter-top">
-          Province / County (if applicable):
-        </Title>
-        <TextInput
-          placeholder="Sisak-Moslavina province"
-          style={{ backgroundColor: '#EFEFEF' }}
-          onEndEditing={
-            (e) => this.setState({ customerProvince: e.nativeEvent.text })
-          }
-          value={orderInfo.customerProvince || null}
+        <FormInput
+          onChangeText={text => {this.setState({
+            orderInfo: {
+              ...orderInfo,
+              customerProvince: text,
+            }
+          })}}
+          placeholder="Osječko-Baranjska Županija"
+          title="Županija:"
+          value={orderInfo.customerProvince}
         />
-
-        <Title styleName="sm-gutter-left sm-gutter-top">
-          Country:
-        </Title>
-        <TextInput
-          placeholder="Croatia"
-          style={{ backgroundColor: '#EFEFEF' }}
-          onEndEditing={
-            (e) => this.setState({ customerCountry: e.nativeEvent.text })
-          }
-          value={orderInfo.customerCountry || null}
+        <FormInput
+          onChangeText={text => {this.setState({
+            orderInfo: {
+              ...orderInfo,
+              customerCountry: text,
+            }
+          })}}
+          placeholder="Hrvatska"
+          title="Država:"
+          value={orderInfo.customerCountry}
         />
-
-        <Title styleName="sm-gutter-left sm-gutter-top">
-          Email:
-        </Title>
-        <TextInput
-          placeholder="example@domain.com"
-          style={{ backgroundColor: '#EFEFEF' }}
-          onEndEditing={
-            (e) => this.validateEmail(e.nativeEvent.text)
-          }
-          value={orderInfo.customerEmail || null}
+        <FormInput
+          onChangeText={text => {this.setState({
+            orderInfo: {
+              ...orderInfo,
+              customerEmail: text,
+            }
+          })}}
+          placeholder="primjer@domena.hr"
+          title="Email:"
+          validation={this.validateEmail}
+          value={orderInfo.customerEmail}
         />
-        <TouchableOpacity
-          onPress={this.submitOrder}
-          disabled={shouldDisableSend}
-        >
-          <View styleName="vertical v-center h-center md-gutter-vertical">
-            <Heading style={buttonStyling}>Send Order</Heading>
-          </View>
-        </TouchableOpacity>
+        {!orderInfoIsIncomplete && this.renderSaveInfoSwitch()}
+        <View styleName="vertical v-center h-center md-gutter-vertical">
+          <TouchableOpacity
+            onPress={this.submitOrder}
+            disabled={orderInfoIsIncomplete}
+          >
+            <Heading style={buttonStyling}>Pošalji Narudžbu</Heading>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -227,6 +318,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
+  clearSavedOrderInfo,
   saveOrderInfo,
   sendOrder,
 };
