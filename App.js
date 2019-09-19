@@ -4,6 +4,7 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
 } from 'react-navigation';
+import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux';
 
 import TabBarIcon from './components/TabBarIcon';
@@ -13,7 +14,7 @@ import NewsDetails from './screens/NewsDetails';
 import ProductList from './screens/ProductList';
 import ProductDetails from './screens/ProductDetails';
 import ShoppingCart from './screens/ShoppingCart';
-import { store } from './redux';
+import { configureStore } from './redux';
 
 const NewsStack = createStackNavigator({
   NewsList: {
@@ -107,11 +108,15 @@ const AppNavigator = createBottomTabNavigator(
 
 const AppContainer = createAppContainer(AppNavigator);
 
+const { persistor, store } = configureStore();
+
 export default class App extends React.PureComponent {
   render() {
     return (
       <Provider store={store}>
-        <AppContainer />
+        <PersistGate loading={null} persistor={persistor}>
+          <AppContainer />
+        </PersistGate>
       </Provider>
     )
   }

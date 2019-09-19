@@ -1,5 +1,5 @@
 // store
-export store from './store';
+export configureStore from './store';
 
 // actions
 export {
