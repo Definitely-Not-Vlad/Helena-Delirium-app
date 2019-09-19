@@ -72,7 +72,7 @@ ShoppingCartStack.navigationOptions = ({ navigation }) => {
 
 const AppNavigator = createBottomTabNavigator(
   {
-    News: NewsStack,
+    //News: NewsStack, // will be reintroduced once FB Graph API is configured
     Products: ProductStack,
     ShoppingCart: ShoppingCartStack,
   },
