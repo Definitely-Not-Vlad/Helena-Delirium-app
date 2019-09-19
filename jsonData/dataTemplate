@@ -5,6 +5,7 @@
   "price": "",
   "netto": "",
   "jarSize": "",
+  "canAddToCart": true,
   "description": "",
   "image": { "url": "" }
 }
