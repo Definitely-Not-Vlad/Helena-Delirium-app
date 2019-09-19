@@ -136,6 +136,28 @@ class CheckoutScreen extends PureComponent {
       paddingHorizontal: 12,
     };
 
+    // News will be reintroduced once FB Graph API is configured
+    // return (
+    //   <View
+    //     style={{ backgroundColor: '#F2F1EF' }}
+    //     styleName="fill-parent vertical v-center h-center xl-gutter-bottom"
+    //   >
+    //     <Title>Vaša narudžba je poslana.</Title>
+    //     <View styleName="horizontal h-center stretch xl-gutter-top">
+    //       <TouchableOpacity onPress={() => this.navigateToNews()}>
+    //         <Title style={buttonStyling}>
+    //           Novosti
+    //         </Title>
+    //       </TouchableOpacity>
+    //       <TouchableOpacity onPress={() => this.navigateToProducts()}>
+    //         <Title styleName="lg-gutter-left" style={buttonStyling}>
+    //           Katalog
+    //         </Title>
+    //       </TouchableOpacity>
+    //     </View>
+    //   </View>
+    // );
+
     return (
       <View
         style={{ backgroundColor: '#F2F1EF' }}
@@ -143,13 +165,8 @@ class CheckoutScreen extends PureComponent {
       >
         <Title>Vaša narudžba je poslana.</Title>
         <View styleName="horizontal h-center stretch xl-gutter-top">
-          <TouchableOpacity onPress={() => this.navigateToNews()}>
-            <Title style={buttonStyling}>
-              Novosti
-            </Title>
-          </TouchableOpacity>
           <TouchableOpacity onPress={() => this.navigateToProducts()}>
-            <Title styleName="lg-gutter-left" style={buttonStyling}>
+            <Title style={buttonStyling}>
               Katalog
             </Title>
           </TouchableOpacity>
