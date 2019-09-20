@@ -23,28 +23,29 @@ class SavedOrderForm extends PureComponent {
       paddingVertical: 8,
       paddingHorizontal: 12,
     };
+    const titleStyle = 'sm-gutter-top md-gutter-bottom md-gutter-left';
 
     return (
-      <View styleName="vertical md-gutter-left" style={{ backgroundColor: '#FFFFFF' }}>
-        <Title styleName="md-gutter-bottom">
+      <View styleName="vertical" style={{ backgroundColor: '#FFFFFF' }}>
+        <Title styleName="md-gutter-bottom md-gutter-left">
           {savedOrderInfo.customerName}
         </Title>
-        <Title styleName="sm-gutter-top md-gutter-bottom">
+        <Title styleName={titleStyle}>
           {savedOrderInfo.customerAddress}
         </Title>
-        <Title styleName="sm-gutter-top md-gutter-bottom">
+        <Title styleName={titleStyle}>
           {savedOrderInfo.customerCity}
         </Title>
-        <Title styleName="sm-gutter-top md-gutter-bottom">
+        <Title styleName={titleStyle}>
           {savedOrderInfo.customerPostalCode}
         </Title>
-        <Title styleName="sm-gutter-top md-gutter-bottom">
+        <Title styleName={titleStyle}>
           {savedOrderInfo.customerProvince}
         </Title>
-        <Title styleName="sm-gutter-top md-gutter-bottom">
+        <Title styleName={titleStyle}>
           {savedOrderInfo.customerCountry}
         </Title>
-        <Title styleName="sm-gutter-top md-gutter-bottom">
+        <Title styleName={titleStyle}>
           {savedOrderInfo.customerEmail}
         </Title>
         <View styleName="horizontal h-center stretch">
